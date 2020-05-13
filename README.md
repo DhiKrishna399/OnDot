@@ -1,6 +1,10 @@
 # Project_Q
-Whatever Buzz becomes
+Main Repo for this project:
 
-Luggy it will not be ONDOT
+5/13/20
+Milestone #1:
+	Tasks:
+		Login UI
+		Email + password user auth
+		Maps interface + pin drop
 
-Myles is the best intern!
