@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_q/screens/maps_page.dart';
 
 import './screens/main_user_info.dart';
 
@@ -20,6 +21,7 @@ class ImGame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MainUserScreen(),
+      //body: MapsPage(),
     );
   }
 }

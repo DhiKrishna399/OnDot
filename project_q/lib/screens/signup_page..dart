@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'maps_page.dart';
+
 class SignUpPage extends StatelessWidget {
   const SignUpPage({
     Key key,
@@ -94,9 +96,10 @@ class SignUpPage extends StatelessWidget {
         SizedBox(height: 10),
         InkWell(
           child: new Text('Already have an account?'),
-          onTap: (){ selectorHandler(); },
+          onTap: () {
+            selectorHandler();
+          },
         ),
-        
       ],
     );
   }

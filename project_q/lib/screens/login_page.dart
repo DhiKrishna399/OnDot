@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'maps_page.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({
     Key key,
@@ -17,8 +19,7 @@ class LoginPage extends StatelessWidget {
       children: <Widget>[
         Text(
           "Welcome Back!",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 30),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 40),
@@ -61,7 +62,14 @@ class LoginPage extends StatelessWidget {
         Container(
           width: queryData.size.width / 2,
           child: RaisedButton(
-            onPressed: () {},
+            
+            onPressed: () {
+              // MapsPage();
+              //  Navigator.push(
+              //    context,
+              //    MaterialPageRoute(builder: (context) => MapsPage()),
+              //  );
+            },
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
             ),
@@ -75,9 +83,10 @@ class LoginPage extends StatelessWidget {
         ),
         InkWell(
           child: new Text('New user? Sign up here'),
-          onTap: (){ selectorHandler(); },
+          onTap: () {
+            selectorHandler();
+          },
         ),
-        
       ],
     );
   }
