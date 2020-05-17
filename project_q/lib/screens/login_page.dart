@@ -64,11 +64,10 @@ class LoginPage extends StatelessWidget {
           child: RaisedButton(
             
             onPressed: () {
-              // MapsPage();
-              //  Navigator.push(
-              //    context,
-              //    MaterialPageRoute(builder: (context) => MapsPage()),
-              //  );
+               Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) => MapsPage()),
+               );
             },
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),

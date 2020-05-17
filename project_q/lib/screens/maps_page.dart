@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -28,51 +27,49 @@ class _MapsPageState extends State<MapsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
-        ),
-        body: Stack(
-          children: <Widget>[
-            loading == false
-                ? GoogleMap(
-                    mapType: _currentMapType,
-                    initialCameraPosition: CameraPosition(
-                      target: center,
-                      zoom: 17.0,
-                    ),
-                    onCameraMove: _onCameraMove,
-                    markers: _markers,
-                  )
-                : CircularProgressIndicator(), //Add this loader to prevent error message on pop up
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Column(
-                  children: <Widget>[
-                    FloatingActionButton(
-                      onPressed: () => _onMapTypeButtonPressed(),
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.map, size: 36.0),
-                    ),
-                    SizedBox(height: 20),
-                    FloatingActionButton(
-                      onPressed: _onAddMarkerButtonPressed,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.red,
-                      child: const Icon(Icons.add_location, size: 36.0),
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Maps Sample App'),
+        backgroundColor: Colors.green[700],
+      ),
+      body: Stack(
+        children: <Widget>[
+          loading == false
+              ? GoogleMap(
+                  mapType: _currentMapType,
+                  initialCameraPosition: CameraPosition(
+                    target: center,
+                    zoom: 17.0,
+                  ),
+                  onCameraMove: _onCameraMove,
+                  markers: _markers,
+                )
+              : CircularProgressIndicator(), //Add this loader to prevent error message on pop up
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Column(
+                children: <Widget>[
+                  FloatingActionButton(
+                    onPressed: () => _onMapTypeButtonPressed(),
+                    materialTapTargetSize: MaterialTapTargetSize.padded,
+                    backgroundColor: Colors.green,
+                    child: const Icon(Icons.map, size: 36.0),
+                  ),
+                  SizedBox(height: 20),
+                  FloatingActionButton(
+                    onPressed: _onAddMarkerButtonPressed,
+                    materialTapTargetSize: MaterialTapTargetSize.padded,
+                    backgroundColor: Colors.red,
+                    child: const Icon(Icons.add_location, size: 36.0),
+                  ),
+                  SizedBox(height: 20),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
