@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'maps_page.dart';
+
 class SignUpPage extends StatelessWidget {
   const SignUpPage({
     Key key,
     @required this.queryData,
     @required this.selectorHandler,
+    @required this.mapsPageRoute,
   }) : super(key: key);
 
   final MediaQueryData queryData;
   final Function selectorHandler;
+  final Function mapsPageRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +86,9 @@ class SignUpPage extends StatelessWidget {
         Container(
           width: queryData.size.width / 2,
           child: RaisedButton(
-            onPressed: () {},
+            onPressed: () {
+                mapsPageRoute();
+            },
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
             ),
@@ -94,9 +100,10 @@ class SignUpPage extends StatelessWidget {
         SizedBox(height: 10),
         InkWell(
           child: new Text('Already have an account?'),
-          onTap: (){ selectorHandler(); },
+          onTap: () {
+            selectorHandler();
+          },
         ),
-        
       ],
     );
   }

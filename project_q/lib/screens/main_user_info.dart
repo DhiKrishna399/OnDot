@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_q/screens/signup_page..dart';
 
 import './login_page.dart';
+import 'maps_page.dart';
 
 class MainUserScreen extends StatefulWidget {
   @override
@@ -18,6 +19,13 @@ class _MainUserScreenState extends State<MainUserScreen> {
     setState(() {
       userIndicator = !userIndicator;
     });
+  }
+
+  void loadMaps() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MapsPage()),
+    );
   }
 
   @override
@@ -81,10 +89,12 @@ class _MainUserScreenState extends State<MainUserScreen> {
                       ? LoginPage(
                           queryData: queryData,
                           selectorHandler: changeLogin,
+                          mapsPageRoute: loadMaps,
                         )
                       : SignUpPage(
                           queryData: queryData,
                           selectorHandler: changeLogin,
+                          mapsPageRoute: loadMaps
                         ),
                 ),
               ),
