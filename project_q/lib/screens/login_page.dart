@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'maps_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,10 +6,12 @@ class LoginPage extends StatelessWidget {
     Key key,
     @required this.queryData,
     @required this.selectorHandler,
+    @required this.mapsPageRoute
   }) : super(key: key);
 
   final MediaQueryData queryData;
   final Function selectorHandler;
+  final Function mapsPageRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +65,11 @@ class LoginPage extends StatelessWidget {
           child: RaisedButton(
             
             onPressed: () {
-               Navigator.push(
-                 context,
-                 MaterialPageRoute(builder: (context) => MapsPage()),
-               );
+              //  Navigator.push(
+              //    context,
+              //    MaterialPageRoute(builder: (context) => MapsPage()),
+              //  );
+              mapsPageRoute();
             },
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
