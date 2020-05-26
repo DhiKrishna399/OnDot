@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart' ;
+//import 'package:location/location.dart';
 
 class MapsPage extends StatefulWidget {
   MapsPage({Key key}) : super(key: key);
@@ -21,7 +21,7 @@ class _MapsPageState extends State<MapsPage> {
   //Change the appearance of map from hybrid, satellite, etc.
   MapType _currentMapType = MapType.normal;
   Set<Marker> _markers = {};
-  var location = new Location();
+  //var location = new Location();
   static Position _currentPosition;
   static LatLng center;
   bool loading = true;
@@ -48,9 +48,6 @@ class _MapsPageState extends State<MapsPage> {
                   color: Colors.white,
                   type: SpinKitWaveType.start,
                 ),
-                // child: CircularProgressIndicator(
-
-                // ),
               ), //Add this loader to prevent error message on pop up
         Padding(
           padding: const EdgeInsets.all(16.0),
