@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:project_q/screens/signup_page..dart';
+import 'package:project_q/widgets/signup_page..dart';
+import 'package:provider/provider.dart';
 
-import './login_page.dart';
+import '../widgets/login_page.dart';
 import 'maps_page.dart';
+import '../screens/maps_page.dart';
+import '../providers/auth.dart';
+import '../models/http_exception.dart';
+
 
 class MainUserScreen extends StatefulWidget {
   @override
@@ -13,8 +18,61 @@ class _MainUserScreenState extends State<MainUserScreen> {
   //true: login
   //false: signup
   bool userIndicator = true;
+  GlobalKey<FormState> formKey = GlobalKey();
+  var isLoading = false;
+  Map<String, String> authData = {
+    'email': '',
+    'password': '',
+  };
+
+
 
   //called whenever page needs to be switched
+  Future<void> _submit() async {
+    if (!formKey.currentState.validate()) {
+      // Invalid!
+      return;
+    }
+    formKey.currentState.save();
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      // Log user in
+      await Provider.of<Auth>(context, listen: false).login(
+        authData['email'],
+        authData['password'],
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MapsPage()),
+      );
+    } on HttpException catch (error) {
+      var errorMessage = 'Authentication failed';
+      if (error.toString().contains('EMAIL_EXISTS')) {
+        errorMessage = 'This email address is already in use.';
+      } else if (error.toString().contains('INVALID_EMAIL')) {
+        errorMessage = 'This is not a valid email address';
+      } else if (error.toString().contains('WEAK_PASSWORD')) {
+        errorMessage = 'This password is too weak.';
+      } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
+        errorMessage = 'Could not find a user with that email.';
+      } else if (error.toString().contains('INVALID_PASSWORD')) {
+        errorMessage = 'Invalid password.';
+      }
+      
+      //_showErrorDialog(errorMessage);
+    } catch (error) {
+      const errorMessage =
+          'Could not authenticate you. Please try again later.';
+      //_showErrorDialog(errorMessage);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   void changeLogin() {
     setState(() {
       userIndicator = !userIndicator;
@@ -90,6 +148,13 @@ class _MainUserScreenState extends State<MainUserScreen> {
                           queryData: queryData,
                           selectorHandler: changeLogin,
                           mapsPageRoute: loadMaps,
+                          authData: authData,
+                          formKey: formKey,
+                          submitTotal: _submit,
+                          isLoading: isLoading,
+                          
+  
+
                         )
                       : SignUpPage(
                           queryData: queryData,
