@@ -1,2 +1,18 @@
+<<<<<<< HEAD
 connection.project.dir=app
 eclipse.preferences.version=1
+=======
+arguments=
+auto.sync=false
+build.scans.enabled=false
+connection.gradle.distribution=GRADLE_DISTRIBUTION(VERSION(6.3))
+connection.project.dir=app
+eclipse.preferences.version=1
+gradle.user.home=
+java.home=/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home
+jvm.arguments=
+offline.mode=false
+override.workspace.settings=true
+show.console.view=true
+show.executions.view=true
+>>>>>>> 199ec8bae1d8cf9b8d35a46169f68479f4f5506b
