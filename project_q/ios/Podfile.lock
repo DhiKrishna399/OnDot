@@ -14,8 +14,6 @@ PODS:
   - GoogleMaps/Base (2.7.0)
   - GoogleMaps/Maps (2.7.0):
     - GoogleMaps/Base
-  - location (0.0.1):
-    - Flutter
   - location_permissions (2.0.5):
     - Flutter
 
@@ -25,7 +23,6 @@ DEPENDENCIES:
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
-  - location (from `.symlinks/plugins/location/ios`)
   - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
 
 SPEC REPOS:
@@ -43,8 +40,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_api_availability/ios"
   google_maps_flutter:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
-  location:
-    :path: ".symlinks/plugins/location/ios"
   location_permissions:
     :path: ".symlinks/plugins/location_permissions/ios"
 
@@ -55,7 +50,6 @@ SPEC CHECKSUMS:
   google_api_availability: 15fa42a8cd83c0a6738507ffe6e87096f12abcb8
   google_maps_flutter: df4e7de95264aa0a2f11aac0fc7e313acb8ffc7e
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
-  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   location_permissions: 4a49d4e5bec5b653643e551ab77963cc99bb0e4a
 
 PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
