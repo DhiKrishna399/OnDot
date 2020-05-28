@@ -9,26 +9,29 @@ import '../models/http_exception.dart';
 class SignUpPage extends StatefulWidget {
   const SignUpPage({
     Key key,
+    @required this.submitTotal,
     @required this.queryData,
     @required this.selectorHandler,
     @required this.mapsPageRoute,
+    @required this.isLoading,
+    @required this.authData,
+    @required this.formKey,
   }) : super(key: key);
 
   final MediaQueryData queryData;
   final Function selectorHandler;
   final Function mapsPageRoute;
+  final Function submitTotal;
+  final bool isLoading;
+  final Map<String, String> authData; 
+  final GlobalKey<FormState> formKey;
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  Map<String, String> _authData = {
-    'email': '',
-    'password': '',
-  };
-  var _isLoading = false;
+ 
   final _passwordController = TextEditingController();
 
   void _showErrorDialog(String message) {
@@ -49,50 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
-      // Invalid!
-      return;
-    }
-    _formKey.currentState.save();
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      // Log user in
-      await Provider.of<Auth>(context, listen: false).signup(
-        _authData['email'],
-        _authData['password'],
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MapsPage()),
-      );
-    } on HttpException catch (error) {
-      var errorMessage = 'Authentication failed';
-      if (error.toString().contains('EMAIL_EXISTS')) {
-        errorMessage = 'This email address is already in use.';
-      } else if (error.toString().contains('INVALID_EMAIL')) {
-        errorMessage = 'This is not a valid email address';
-      } else if (error.toString().contains('WEAK_PASSWORD')) {
-        errorMessage = 'This password is too weak, it should have more than six letters';
-      } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
-        errorMessage = 'Could not find a user with that email.';
-      } else if (error.toString().contains('INVALID_PASSWORD')) {
-        errorMessage = 'Invalid password.';
-      }
-      _showErrorDialog(errorMessage);
-    } catch (error) {
-      const errorMessage =
-          'Could not authenticate you. Please try again later.';
-      _showErrorDialog(errorMessage);
-    }
-    
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         const SizedBox(height: 40),
         Form(
-          key: _formKey,
+          key: widget.formKey,
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -133,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                     },
                     onSaved: (value) {
-                      _authData['email'] = value;
+                      widget.authData['email'] = value;
                     },
                   ),
                 ),
@@ -161,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                     },
                     onSaved: (value) {
-                      _authData['password'] = value;
+                      widget.authData['password'] = value;
                     },
                   ),
                 ),
@@ -197,9 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Container(
           width: widget.queryData.size.width / 2,
           child: RaisedButton(
-            onPressed: _submit,/*() {
-                widget.mapsPageRoute();
-            },*/
+            onPressed: ()=> widget.submitTotal(),
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
             ),

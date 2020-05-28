@@ -176,8 +176,7 @@ class _LoginPageState extends State<LoginPage> {
         Container(
           width: widget.queryData.size.width / 2,
           child: RaisedButton(
-            
-            onPressed: ()=> widget.submitTotal,
+            onPressed: ()=> widget.submitTotal(),
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
             ),

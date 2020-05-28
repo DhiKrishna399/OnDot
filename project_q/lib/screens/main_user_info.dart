@@ -25,7 +25,23 @@ class _MainUserScreenState extends State<MainUserScreen> {
     'password': '',
   };
 
-
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('An Error Occurred!'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Okay'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
 
   //called whenever page needs to be switched
   Future<void> _submit() async {
@@ -39,10 +55,17 @@ class _MainUserScreenState extends State<MainUserScreen> {
     });
     try {
       // Log user in
-      await Provider.of<Auth>(context, listen: false).login(
-        authData['email'],
-        authData['password'],
-      );
+      if(userIndicator == true){
+        await Provider.of<Auth>(context, listen: false).login(
+          authData['email'],
+          authData['password'],
+        );
+      }else{
+        await Provider.of<Auth>(context, listen: false).signup(
+          authData['email'],
+          authData['password'],
+        );
+      }
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MapsPage()),
@@ -61,11 +84,11 @@ class _MainUserScreenState extends State<MainUserScreen> {
         errorMessage = 'Invalid password.';
       }
       
-      //_showErrorDialog(errorMessage);
+      _showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage =
           'Could not authenticate you. Please try again later.';
-      //_showErrorDialog(errorMessage);
+      _showErrorDialog(errorMessage);
     }
 
     setState(() {
@@ -152,14 +175,16 @@ class _MainUserScreenState extends State<MainUserScreen> {
                           formKey: formKey,
                           submitTotal: _submit,
                           isLoading: isLoading,
-                          
-  
-
                         )
                       : SignUpPage(
                           queryData: queryData,
                           selectorHandler: changeLogin,
-                          mapsPageRoute: loadMaps
+                          mapsPageRoute: loadMaps,
+                          authData: authData,
+                          formKey: formKey,
+                          submitTotal: _submit,
+                          isLoading: isLoading,
+
                         ),
                 ),
               ),
