@@ -1,14 +1,18 @@
+import 'package:geolocator/geolocator.dart';
+
 class Event {
   String title;
   String description;
   int numPeople;
   int duration;
+  Position position;
 
   Event({
     this.title,
     this.description,
     this.numPeople,
     this.duration,
+    this.position
   });
 
   void setTitle(String t){
@@ -27,4 +31,9 @@ class Event {
     duration = s;
   }
 
+  void setPosition(Position p){
+    position = p;
+  }
+
+  
 }
