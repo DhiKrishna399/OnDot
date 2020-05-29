@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart' ;
-
+import 'package:geolocator/geolocator.dart';
+import 'package:project_q/widgets/create_event.dart';
 
 class MapsPage extends StatefulWidget {
   MapsPage({Key key}) : super(key: key);
@@ -27,6 +27,9 @@ class _MapsPageState extends State<MapsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size;
+    double displayWidth = mediaQuery.width;
+    double displayHeight = mediaQuery.height;
     return Stack(
       children: <Widget>[
         loading == false
@@ -60,7 +63,7 @@ class _MapsPageState extends State<MapsPage> {
                     onPressed: () => _onMapTypeButtonPressed(),
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     backgroundColor: Colors.green,
-                    child: const Icon(Icons.map, size: 36.0),
+                    child: const Icon(Icons.map, size: 30.0),
                   ),
                   SizedBox(height: 20),
                   FloatingActionButton(
@@ -68,9 +71,16 @@ class _MapsPageState extends State<MapsPage> {
                     onPressed: _onAddMarkerButtonPressed,
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     backgroundColor: Colors.red,
-                    child: const Icon(Icons.add_location, size: 36.0),
+                    child: const Icon(Icons.add_location, size: 30.0),
                   ),
                   SizedBox(height: 20),
+                  FloatingActionButton(
+                    heroTag: "createEvent",
+                    onPressed: () => _createNewEvent(context),
+                    materialTapTargetSize: MaterialTapTargetSize.padded,
+                    backgroundColor: Colors.blue,
+                    child: const Icon(Icons.add_location, size: 30.0),
+                  ),
                 ],
               ),
             ),
@@ -122,5 +132,18 @@ class _MapsPageState extends State<MapsPage> {
     }).catchError((e) {
       print(e);
     });
+  }
+
+  void _createNewEvent(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          child: CreateEvent(),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
   }
 }
