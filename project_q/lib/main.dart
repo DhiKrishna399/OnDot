@@ -8,7 +8,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-     return MultiProvider(
+    return MultiProvider(
         providers: [
           ChangeNotifierProvider.value(
             value: Auth(),
@@ -16,15 +16,12 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'IMGAME',
-          
           home: ImGame(),
         ));
-  
   }
 }
 
 class ImGame extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,4 +30,3 @@ class ImGame extends StatelessWidget {
     );
   }
 }
-

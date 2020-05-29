@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/auth.dart';
-import '../screens/maps_page.dart';
-import '../models/http_exception.dart';
-
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({
@@ -23,7 +17,7 @@ class SignUpPage extends StatefulWidget {
   final Function mapsPageRoute;
   final Function submitTotal;
   final bool isLoading;
-  final Map<String, String> authData; 
+  final Map<String, String> authData;
   final GlobalKey<FormState> formKey;
 
   @override
@@ -31,28 +25,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
- 
   final _passwordController = TextEditingController();
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('An Error Occurred!'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Okay'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                       border: new OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
+                          Radius.circular(10),
                         ),
                       ),
                       hintText: "Enter Email",
@@ -97,14 +70,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                   ),
                 ),
-
                 SizedBox(height: 10),
                 Container(
-
                   height: 50,
                   width: widget.queryData.size.width / 1.5,
                   child: TextFormField(
-                   obscureText: true,
+                    obscureText: true,
                     textAlign: TextAlign.center,
                     controller: _passwordController,
                     decoration: InputDecoration(
@@ -125,39 +96,36 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                   ),
                 ),
-
                 SizedBox(height: 10),
                 Container(
                   height: 50,
                   width: widget.queryData.size.width / 1.5,
                   child: TextFormField(
-                    obscureText: true,
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
+                      obscureText: true,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
+                        hintText: "Confirm Password",
                       ),
-                    hintText: "Confirm Password",
-                    ),
-                    validator: (value){
-                      if (value != _passwordController.text) {
-                        return 'Passwords do not match!';
-                      }
-                    }
-                  ),
+                      validator: (value) {
+                        if (value != _passwordController.text) {
+                          return 'Passwords do not match!';
+                        }
+                      }),
                 ),
               ],
             ),
           ),
         ),
-
         SizedBox(height: 10),
         Container(
           width: widget.queryData.size.width / 2,
           child: RaisedButton(
-            onPressed: ()=> widget.submitTotal(),
+            onPressed: () => widget.submitTotal(),
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(10),
             ),

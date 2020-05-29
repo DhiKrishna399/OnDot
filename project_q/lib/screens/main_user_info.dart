@@ -8,7 +8,6 @@ import '../screens/maps_page.dart';
 import '../providers/auth.dart';
 import '../models/http_exception.dart';
 
-
 class MainUserScreen extends StatefulWidget {
   @override
   _MainUserScreenState createState() => _MainUserScreenState();
@@ -55,12 +54,12 @@ class _MainUserScreenState extends State<MainUserScreen> {
     });
     try {
       // Log user in
-      if(userIndicator == true){
+      if (userIndicator == true) {
         await Provider.of<Auth>(context, listen: false).login(
           authData['email'],
           authData['password'],
         );
-      }else{
+      } else {
         await Provider.of<Auth>(context, listen: false).signup(
           authData['email'],
           authData['password'],
@@ -83,7 +82,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
       } else if (error.toString().contains('INVALID_PASSWORD')) {
         errorMessage = 'Invalid password.';
       }
-      
+
       _showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage =
@@ -184,7 +183,6 @@ class _MainUserScreenState extends State<MainUserScreen> {
                           formKey: formKey,
                           submitTotal: _submit,
                           isLoading: isLoading,
-
                         ),
                 ),
               ),
