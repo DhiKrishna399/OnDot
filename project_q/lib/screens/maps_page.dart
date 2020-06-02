@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:project_q/models/size_config.dart';
+import 'package:project_q/screens/settings.dart';
 import 'package:project_q/widgets/create_event.dart';
 
 class MapsPage extends StatefulWidget {
@@ -95,9 +96,15 @@ class _MapsPageState extends State<MapsPage> {
                     SizedBox(height: 20),
                     FloatingActionButton(
                       heroTag: "settings",
-                      onPressed: () => _createNewEvent(context),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SettingsPage()),
+                        );
+                      },
                       materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.white,
+                      backgroundColor: Colors.black,
                       child: const Icon(
                         Icons.settings_applications,
                       ),
