@@ -29,8 +29,8 @@ class ImGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //body: MainUserScreen(),
-      body: MapsPage(),
+      body: MainUserScreen(),
+      //body: MapsPage(),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:project_q/widgets/settings_widgets/header.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key}) : super(key: key);
+  
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -15,6 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
     SizeConfig().init(context);
     double inkwellFontSize = SizeConfig.screenWidth * 0.07;
     double infoFontSize = SizeConfig.screenWidth * 0.04;
+    
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -28,8 +30,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               Container(
                 height: SizeConfig.screenHeight * 0.80,
-                padding: EdgeInsets.only(left: 30, right: 25),
-                child: Column(
+                //padding: EdgeInsets.only(left: 30, right: 25),
+                padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * .1),                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
