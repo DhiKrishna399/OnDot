@@ -158,8 +158,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   Container(
-                    height: 62,
-                    width: 62,
+                    height: widget.queryData.size.width * .17,
+                    width: widget.queryData.size.width * .17,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Colors.indigo[900]),
                     child: IconButton(
