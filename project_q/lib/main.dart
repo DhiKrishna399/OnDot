@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth.dart';
 import './screens/main_user_info.dart';
+import './screens/maps_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'IMGAME',
-          
+          debugShowCheckedModeBanner: false,
           home: ImGame(),
         ));
   
@@ -28,8 +29,8 @@ class ImGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MainUserScreen(),
-      //body: MapsPage(),
+      //body: MainUserScreen(),
+      body: MapsPage(),
     );
   }
 }

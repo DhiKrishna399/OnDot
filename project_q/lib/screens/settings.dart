@@ -16,54 +16,56 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Colors.red[50],
+          height: double.infinity,
+          width: double.infinity,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               SettingsHeader(),
               SizedBox(
                 height: SizeConfig.blockSizeVertical * 6,
               ),
-              Padding(
+              Container(
+                height: SizeConfig.screenHeight * 0.80,
                 padding: EdgeInsets.only(left: 30, right: 25),
-                child: Container(
-                  color: Colors.green[100],
-                  child: Column(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        //Row tht holds 'Account' and edit button
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Account',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontSize: SizeConfig.blockSizeHorizontal * 6,
-                                color: Colors.black),
-                          ),
-                          Container(
-                            //color: Colors.black,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: Colors.black,
-                            ),
-
-                            child: IconButton(
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                ),
-                                onPressed: null),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: SizeConfig.blockSizeVertical * 2,
-                      ),
-                      Column(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
+                          Row(
+                            //Row tht holds 'Account' and edit button
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Account',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 6,
+                                    color: Colors.black),
+                              ),
+                              Container(
+                                //color: Colors.black,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Colors.black,
+                                ),
+
+                                child: IconButton(
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: null),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: SizeConfig.blockSizeVertical * 2,
+                          ),
                           Text(
                             'Name: Buzz',
                             style: TextStyle(fontSize: 16),
@@ -93,7 +95,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             height: SizeConfig.blockSizeVertical * 5,
                           ),
                           InkWell(
-                            child: new Text('Map', style: TextStyle(fontSize: 24)),
+                            child:
+                                new Text('Map', style: TextStyle(fontSize: 24)),
                             onTap: () {},
                           ),
                           SizedBox(
@@ -106,18 +109,18 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  color: Colors.red,
-                  child: InkWell(
-                    child: new Text('Sign Out', style: TextStyle(fontSize: 20)),
-                    onTap: () {},
-                  ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        child: InkWell(
+                          child: new Text('Sign Out',
+                              style: TextStyle(fontSize: 20)),
+                          onTap: () {},
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
