@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:project_q/models/size_config.dart';
+import 'package:project_q/screens/settings.dart';
 import 'package:project_q/widgets/create_event.dart';
 
 class MapsPage extends StatefulWidget {
@@ -27,9 +29,8 @@ class _MapsPageState extends State<MapsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context).size;
-    double displayWidth = mediaQuery.width;
-    double displayHeight = mediaQuery.height;
+    SizeConfig().init(context);
+    double _buttonSize = SizeConfig.safeBlockVertical * 50;
     return Stack(
       children: <Widget>[
         loading == false
@@ -56,32 +57,60 @@ class _MapsPageState extends State<MapsPage> {
           child: Align(
             alignment: Alignment.topRight,
             child: SafeArea(
-              child: Column(
-                children: <Widget>[
-                  FloatingActionButton(
-                    heroTag: "MapType",
-                    onPressed: () => _onMapTypeButtonPressed(),
-                    materialTapTargetSize: MaterialTapTargetSize.padded,
-                    backgroundColor: Colors.green,
-                    child: const Icon(Icons.map, size: 30.0),
-                  ),
-                  SizedBox(height: 20),
-                  FloatingActionButton(
-                    heroTag: "marker",
-                    onPressed: _onAddMarkerButtonPressed,
-                    materialTapTargetSize: MaterialTapTargetSize.padded,
-                    backgroundColor: Colors.red,
-                    child: const Icon(Icons.add_location, size: 30.0),
-                  ),
-                  SizedBox(height: 20),
-                  FloatingActionButton(
-                    heroTag: "createEvent",
-                    onPressed: () => _createNewEvent(context),
-                    materialTapTargetSize: MaterialTapTargetSize.padded,
-                    backgroundColor: Colors.blue,
-                    child: const Icon(Icons.add_location, size: 30.0),
-                  ),
-                ],
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: _buttonSize,
+                  maxWidth: _buttonSize,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    FloatingActionButton(
+                      heroTag: "MapType",
+                      onPressed: () => _onMapTypeButtonPressed(),
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      backgroundColor: Colors.green,
+                      child: const Icon(
+                        Icons.map,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    FloatingActionButton(
+                      heroTag: "marker",
+                      onPressed: _onAddMarkerButtonPressed,
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      backgroundColor: Colors.red,
+                      child: const Icon(
+                        Icons.add_location,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    FloatingActionButton(
+                      heroTag: "createEvent",
+                      onPressed: () => _createNewEvent(context),
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      backgroundColor: Colors.blue,
+                      child: const Icon(
+                        Icons.add_location,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    FloatingActionButton(
+                      heroTag: "settings",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SettingsPage()),
+                        );
+                      },
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      backgroundColor: Colors.black,
+                      child: const Icon(
+                        Icons.settings_applications,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
