@@ -13,6 +13,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    double inkwellFontSize = SizeConfig.screenWidth * 0.07;
+    double infoFontSize = SizeConfig.screenWidth * 0.04;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -22,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: <Widget>[
               SettingsHeader(),
               SizedBox(
-                height: SizeConfig.blockSizeVertical * 6,
+                height: SizeConfig.screenHeight * 0.05,
               ),
               Container(
                 height: SizeConfig.screenHeight * 0.80,
@@ -43,8 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 'Account',
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal * 6,
+                                    fontSize: SizeConfig.screenWidth * 0.06,
                                     color: Colors.black),
                               ),
                               Container(
@@ -64,47 +65,47 @@ class _SettingsPageState extends State<SettingsPage> {
                             ],
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical * 2,
+                            height: SizeConfig.screenHeight * 0.03,
                           ),
                           Text(
                             'Name: Buzz',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: infoFontSize),
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical * 1.5,
+                            height: SizeConfig.screenHeight * 0.02,
                           ),
                           Text(
                             'Email: ImGame@ImGame.com',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: infoFontSize),
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical * 3,
+                            height: SizeConfig.screenHeight * 0.05,
                           ),
                           Divider(
                             color: Colors.black,
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical * 5,
+                            height: SizeConfig.screenHeight * 0.05,
                           ),
                           InkWell(
                             child: new Text('Notifications',
-                                style: TextStyle(fontSize: 24)),
+                                style: TextStyle(fontSize: inkwellFontSize)),
                             onTap: () {},
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical * 5,
+                            height: SizeConfig.screenHeight * 0.05,
                           ),
                           InkWell(
-                            child:
-                                new Text('Map', style: TextStyle(fontSize: 24)),
+                            child: new Text('Map',
+                                style: TextStyle(fontSize: inkwellFontSize)),
                             onTap: () {},
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical * 5,
+                            height: SizeConfig.screenHeight * 0.05,
                           ),
                           InkWell(
                             child: new Text('Activities',
-                                style: TextStyle(fontSize: 24)),
+                                style: TextStyle(fontSize: inkwellFontSize)),
                             onTap: () {},
                           ),
                         ],
@@ -114,8 +115,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         child: InkWell(
-                          child: new Text('Sign Out',
-                              style: TextStyle(fontSize: 20)),
+                          child: new Text(
+                            'Sign Out',
+                            style: TextStyle(
+                              fontSize: inkwellFontSize * 0.90,
+                              color: Colors.red[400],
+                            ),
+                          ),
                           onTap: () {},
                         ),
                       ),

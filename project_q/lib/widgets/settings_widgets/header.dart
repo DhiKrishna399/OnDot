@@ -20,7 +20,7 @@ class SettingsHeader extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
-            fontSize: SizeConfig.blockSizeHorizontal * 9,
+            fontSize: SizeConfig.screenWidth * 0.09,
           ),
         ),
         const Spacer(flex: 2),
