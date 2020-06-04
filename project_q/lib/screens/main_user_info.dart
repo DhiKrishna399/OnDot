@@ -8,7 +8,6 @@ import '../screens/maps_page.dart';
 import '../providers/auth.dart';
 import '../models/http_exception.dart';
 
-
 class MainUserScreen extends StatefulWidget {
   @override
   _MainUserScreenState createState() => _MainUserScreenState();
@@ -55,12 +54,12 @@ class _MainUserScreenState extends State<MainUserScreen> {
     });
     try {
       // Log user in
-      if(userIndicator == true){
+      if (userIndicator == true) {
         await Provider.of<Auth>(context, listen: false).login(
           authData['email'],
           authData['password'],
         );
-      }else{
+      } else {
         await Provider.of<Auth>(context, listen: false).signup(
           authData['email'],
           authData['password'],
@@ -83,7 +82,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
       } else if (error.toString().contains('INVALID_PASSWORD')) {
         errorMessage = 'Invalid password.';
       }
-      
+
       _showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage =
@@ -120,77 +119,57 @@ class _MainUserScreenState extends State<MainUserScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
-          end: Alignment.center,
+          end: Alignment.bottomCenter,
           colors: userIndicator
               ? [
-                  Colors.greenAccent[100],
-                  Colors.greenAccent[200],
+                  Colors.green[50],
+                  Colors.tealAccent[100],
                 ]
               : [
-                  Colors.blue[50],
-                  Colors.blue[200],
+                  Colors.yellow[50],
+                  Colors.yellow[200],
                 ],
         ),
       ),
-      child: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              margin: EdgeInsets.only(top: 75),
-              height: 125,
-              width: 125,
-              decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage('images/logo.png'))),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 400,
+      child: SingleChildScrollView(
+              child: Column(
+          children: <Widget>[
+            Container(
               width: double.infinity,
-              padding: EdgeInsets.only(top: 30, bottom: 20),
-              decoration: BoxDecoration(
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      offset: Offset(0, 15),
-                      blurRadius: 30,
-                      spreadRadius: 20,
-                      color: Colors.blueGrey[700])
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-              ),
-              child: Center(
-                child: IntrinsicWidth(
-                  child: userIndicator
-                      ? LoginPage(
-                          queryData: queryData,
-                          selectorHandler: changeLogin,
-                          mapsPageRoute: loadMaps,
-                          authData: authData,
-                          formKey: formKey,
-                          submitTotal: _submit,
-                          isLoading: isLoading,
-                        )
-                      : SignUpPage(
-                          queryData: queryData,
-                          selectorHandler: changeLogin,
-                          mapsPageRoute: loadMaps,
-                          authData: authData,
-                          formKey: formKey,
-                          submitTotal: _submit,
-                          isLoading: isLoading,
-
-                        ),
+              height: queryData.size.height * 0.34,
+              padding: EdgeInsets.symmetric(horizontal: queryData.size.width * 0.1),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  userIndicator ? 'Welcome\nBack' : "Create\nAccount",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w200,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            userIndicator
+                  ? LoginPage(
+                      queryData: queryData,
+                      selectorHandler: changeLogin,
+                      mapsPageRoute: loadMaps,
+                      authData: authData,
+                      formKey: formKey,
+                      submitTotal: _submit,
+                      isLoading: isLoading,
+                    )
+                  : SignUpPage(
+                      queryData: queryData,
+                      selectorHandler: changeLogin,
+                      mapsPageRoute: loadMaps,
+                      authData: authData,
+                      formKey: formKey,
+                      submitTotal: _submit,
+                      isLoading: isLoading,
+                    ),
+          ],
+        ),
       ),
     );
   }
