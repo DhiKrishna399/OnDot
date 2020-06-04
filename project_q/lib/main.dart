@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'IMGAME',
-          
+          debugShowCheckedModeBanner: false,
           home: ImGame(),
         ));
   
