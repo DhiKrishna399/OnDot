@@ -4,7 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:project_q/models/size_config.dart';
 import 'package:project_q/screens/settings.dart';
-import 'package:project_q/widgets/create_event.dart';
+import 'package:project_q/widgets/event_widgets/create_event.dart';
+
 
 class MapsPage extends StatefulWidget {
   MapsPage({Key key}) : super(key: key);
@@ -164,15 +165,10 @@ class _MapsPageState extends State<MapsPage> {
   }
 
   void _createNewEvent(BuildContext ctx) {
-    showModalBottomSheet(
-      context: ctx,
-      builder: (_) {
-        return GestureDetector(
-          onTap: () {},
-          child: CreateEvent(),
-          behavior: HitTestBehavior.opaque,
-        );
-      },
-    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CreateEvent();
+        });
   }
 }
