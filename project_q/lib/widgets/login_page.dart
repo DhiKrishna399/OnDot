@@ -24,12 +24,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // final GlobalKey<FormState> _formKey = GlobalKey();
-  // Map<String, String> _authData = {
-  //   'email': '',
-  //   'password': '',
-  // };
-  // var _isLoading = false;
+  
   final _passwordController = TextEditingController();
 
   void _showErrorDialog(String message) {
