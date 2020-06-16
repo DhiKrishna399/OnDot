@@ -33,17 +33,19 @@ class _EventInfoCardState extends State<EventInfoCard> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 5.0),
-                child: TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    hintText: "Enter Event Title",
+                child: Form(
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      hintText: "Enter Event Title",
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Event title required!';
+                      }
+                    },
                   ),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Event title required!';
-                    }
-                  },
                 ),
               ),
               Padding(
@@ -62,13 +64,13 @@ class _EventInfoCardState extends State<EventInfoCard> {
               ),
               Row(
                 children: [
-                  Counter(),
+                  Counter(count: 0,),
                   Text('Activity Duration (min)'),
                 ],
               ),
               Row(
                 children: [
-                  Counter(),
+                  Counter(count: 2,),
                   Text('Number of people'),
                 ],
               )

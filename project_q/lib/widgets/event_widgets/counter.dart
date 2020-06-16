@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:project_q/models/size_config.dart';
 
 class Counter extends StatefulWidget {
-  Counter({Key key}) : super(key: key);
+  int count;
+
+  Counter({Key key, @required this.count}) : super(key: key);
 
   @override
   _CounterState createState() => _CounterState();
 }
-
-int _currentCount = 0;
 
 class _CounterState extends State<Counter> {
   @override
@@ -21,10 +21,15 @@ class _CounterState extends State<Counter> {
             Icons.chevron_left,
             size: SizeConfig.screenHeight * 0.05,
           ),
-          onPressed: add,
+          onPressed: (){
+            setState(() {
+              if(widget.count >= 1) widget.count--;
+              
+            });
+          },
         ),
         Text(
-          '$_currentCount',
+          '${widget.count}',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: SizeConfig.screenHeight * 0.03,
@@ -35,21 +40,14 @@ class _CounterState extends State<Counter> {
             Icons.chevron_right,
             size: SizeConfig.screenHeight * 0.05,
           ),
-          onPressed: minus,
+          onPressed: () {
+            setState(() {
+              if(widget.count >= 0) widget.count++;
+              
+            });
+          },
         ),
       ],
     );
-  }
-
-  void add() {
-    setState(() {
-      _currentCount++;
-    });
-  }
-
-  void minus() {
-    setState(() {
-      _currentCount++;
-    });
   }
 }
