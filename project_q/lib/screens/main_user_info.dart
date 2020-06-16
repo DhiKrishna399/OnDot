@@ -9,6 +9,7 @@ import '../providers/auth.dart';
 import '../models/http_exception.dart';
 
 class MainUserScreen extends StatefulWidget {
+  static const routeName = '/mainUserScreen';
   @override
   _MainUserScreenState createState() => _MainUserScreenState();
 }
@@ -113,62 +114,64 @@ class _MainUserScreenState extends State<MainUserScreen> {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
 
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: userIndicator
-              ? [
-                  Colors.green[50],
-                  Colors.tealAccent[100],
-                ]
-              : [
-                  Colors.yellow[50],
-                  Colors.yellow[200],
-                ],
+    return Scaffold(
+          body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: userIndicator
+                ? [
+                    Colors.green[50],
+                    Colors.tealAccent[100],
+                  ]
+                : [
+                    Colors.yellow[50],
+                    Colors.yellow[200],
+                  ],
+          ),
         ),
-      ),
-      child: SingleChildScrollView(
-              child: Column(
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: queryData.size.height * 0.34,
-              padding: EdgeInsets.symmetric(horizontal: queryData.size.width * 0.1),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  userIndicator ? 'Welcome\nBack' : "Create\nAccount",
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w200,
+        child: SingleChildScrollView(
+                child: Column(
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                height: queryData.size.height * 0.34,
+                padding: EdgeInsets.symmetric(horizontal: queryData.size.width * 0.1),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    userIndicator ? 'Welcome\nBack' : "Create\nAccount",
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w200,
+                    ),
                   ),
                 ),
               ),
-            ),
-            userIndicator
-                  ? LoginPage(
-                      queryData: queryData,
-                      selectorHandler: changeLogin,
-                      mapsPageRoute: loadMaps,
-                      authData: authData,
-                      formKey: formKey,
-                      submitTotal: _submit,
-                      isLoading: isLoading,
-                    )
-                  : SignUpPage(
-                      queryData: queryData,
-                      selectorHandler: changeLogin,
-                      mapsPageRoute: loadMaps,
-                      authData: authData,
-                      formKey: formKey,
-                      submitTotal: _submit,
-                      isLoading: isLoading,
-                    ),
-          ],
+              userIndicator
+                    ? LoginPage(
+                        queryData: queryData,
+                        selectorHandler: changeLogin,
+                        mapsPageRoute: loadMaps,
+                        authData: authData,
+                        formKey: formKey,
+                        submitTotal: _submit,
+                        isLoading: isLoading,
+                      )
+                    : SignUpPage(
+                        queryData: queryData,
+                        selectorHandler: changeLogin,
+                        mapsPageRoute: loadMaps,
+                        authData: authData,
+                        formKey: formKey,
+                        submitTotal: _submit,
+                        isLoading: isLoading,
+                      ),
+            ],
+          ),
         ),
       ),
     );

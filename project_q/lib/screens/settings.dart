@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:project_q/models/size_config.dart';
 import 'package:project_q/widgets/settings_widgets/header.dart';
 
+import '../providers/auth.dart';
+import '../screens/main_user_info.dart';
+import '../main.dart';
+
 class SettingsPage extends StatefulWidget {
+  static const routeName = '/settingPage';
   SettingsPage({Key key}) : super(key: key);
   
 
@@ -124,7 +130,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               color: Colors.red[400],
                             ),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                           //Navigator.of(context).pushReplacementNamed(MainUserScreen.routeName);
+                           Navigator.of(context).popUntil((route) => route.isFirst);
+                           Provider.of<Auth>(context, listen: false).logout();
+                          },
                         ),
                       ),
                     ),
