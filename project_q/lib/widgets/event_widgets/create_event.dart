@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_q/models/size_config.dart';
+
 import 'package:project_q/widgets/event_widgets/event_card.dart';
+
+import 'package:project_q/widgets/event_widgets/event_card_info.dart';
+
 
 class CreateEvent extends StatefulWidget {
   CreateEvent({Key key}) : super(key: key);
@@ -17,9 +21,11 @@ class _CreateEventState extends State<CreateEvent> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Dialog(
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Container(
         height: SizeConfig.screenHeight * 0.62,
+
         //width: SizeConfig.screenWidth/ 1.15,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -33,4 +39,6 @@ class _CreateEventState extends State<CreateEvent> {
       ),
     );
   }
+
 }
+

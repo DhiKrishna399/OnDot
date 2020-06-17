@@ -28,4 +28,6 @@ class NewEventLocationText extends StatelessWidget {
       ],
     );
   }
+
 }
+
