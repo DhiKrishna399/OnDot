@@ -19,7 +19,7 @@ class _CreateEventState extends State<CreateEvent> {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Container(
-        height: SizeConfig.screenHeight / 1.75,
+        height: SizeConfig.screenHeight * 0.62,
         //width: SizeConfig.screenWidth/ 1.15,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
