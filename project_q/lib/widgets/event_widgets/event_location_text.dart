@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_q/models/size_config.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class NewEventLocationText extends StatelessWidget {
   const NewEventLocationText({Key key}) : super(key: key);
@@ -17,17 +18,14 @@ class NewEventLocationText extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Location'),
-            Text(
+            AutoSizeText('Location'),
+            AutoSizeText(
               '1156 High St, Santa Cruz, CA 95064',
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+              
             ),
           ],
         ),
       ],
     );
   }
-
 }
-

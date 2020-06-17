@@ -1,15 +1,19 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter/foundation.dart';
+
 
 class Event {
   String title;
   String description;
+  final String id;
   int numPeople;
   int duration;
   Position position;
 
   Event({
-    this.title,
-    this.description,
+    @required this.title,
+    @required this.description,
+    @required this.id,
     this.numPeople,
     this.duration,
     this.position
