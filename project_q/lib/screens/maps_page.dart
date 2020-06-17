@@ -71,7 +71,7 @@ class _MapsPageState extends State<MapsPage> {
                 Align(
                   alignment: Alignment.bottomCenter,
                     child: Container(
-                    height: 310,
+                    height: 320,
                     child: Swiper(
                         itemCount: eventDummy.length,
                         scale: 0.80,
