@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:project_q/models/size_config.dart';
-import 'package:project_q/screens/settings.dart';
-import 'package:project_q/widgets/create_event.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
+import '../models/size_config.dart';
+import '../models/event_dummy.dart';
+import '../widgets/event_widgets/create_event.dart';
+import '../widgets/button_widgets/maps_button.dart';
+import '../widgets/card_widgets/event_card.dart';
+import './loading_screen.dart';
 
 class MapsPage extends StatefulWidget {
   static const routeName = '/mapsPage';
@@ -31,95 +35,58 @@ class _MapsPageState extends State<MapsPage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double _buttonSize = SizeConfig.safeBlockVertical * 50;
     return WillPopScope(
       onWillPop: () async => false,
-          child: Stack(
-        children: <Widget>[
-          loading == false
-              ? GoogleMap(
+      child: loading == false
+          ? Stack(
+              children: [
+                GoogleMap(
                   mapType: _currentMapType,
+                  myLocationButtonEnabled: false,
                   initialCameraPosition: CameraPosition(
                     target: center,
                     zoom: 19.0,
                   ),
                   onCameraMove: _onCameraMove,
                   markers: _markers,
-                )
-              : Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.greenAccent[400],
-                  child: SpinKitWave(
-                    color: Colors.white,
-                    type: SpinKitWaveType.start,
-                  ),
-                ), //Add this loader to prevent error message on pop up
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: SafeArea(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: _buttonSize,
-                    maxWidth: _buttonSize,
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      FloatingActionButton(
-                        heroTag: "MapType",
-                        onPressed: () => _onMapTypeButtonPressed(),
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        backgroundColor: Colors.green,
-                        child: const Icon(
-                          Icons.map,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      FloatingActionButton(
-                        heroTag: "marker",
-                        onPressed: _onAddMarkerButtonPressed,
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        backgroundColor: Colors.red,
-                        child: const Icon(
-                          Icons.add_location,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      FloatingActionButton(
-                        heroTag: "createEvent",
-                        onPressed: () => _createNewEvent(context),
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        backgroundColor: Colors.blue,
-                        child: const Icon(
-                          Icons.add_location,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      FloatingActionButton(
-                        heroTag: "settings",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SettingsPage()),
-                          );
-                        },
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        backgroundColor: Colors.black,
-                        child: const Icon(
-                          Icons.settings_applications,
-                        ),
-                      ),
-                    ],
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    height: SizeConfig.screenHeight * 0.15,
+                    width: SizeConfig.screenWidth * 0.15,
+                    margin: EdgeInsets.only(
+                      top: SizeConfig.screenWidth * 0.07,
+                      right: SizeConfig.screenWidth * 0.04,
+                    ),
+                    child: Column(
+                      children: [
+                        CreateEventButton(),
+                        SizedBox(height: SizeConfig.screenHeight * 0.02),
+                        SettingsButton(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-        ],
-      ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                    child: Container(
+                    height: 310,
+                    child: Swiper(
+                        itemCount: eventDummy.length,
+                        scale: 0.80,
+                        viewportFraction: 0.66,
+                        itemBuilder: (context, index) {
+                          return CardEvent(eventDummy[index]);
+                          
+                        },
+                      ),
+                  ),
+                ),
+                
+              ],
+            )
+          : LoadingScreen(), //Add this loader to prevent error message on pop up
     );
   }
 

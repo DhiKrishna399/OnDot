@@ -41,8 +41,8 @@ class ImGame extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        body: MainUserScreen(),
-        //body: MapsPage(),
+        //body: MainUserScreen(),
+        body: MapsPage(),
       ),
     );
   }
