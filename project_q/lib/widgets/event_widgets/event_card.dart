@@ -48,10 +48,10 @@ class _EventInfoCardState extends State<EventInfoCard> {
   }
 
   void _saveForm() {
-    /*final isValid = _form.currentState.validate();
+    final isValid = _form.currentState.validate();
     if (!isValid) {
       return;
-    }*/
+    }
     _form.currentState.save();
     if (_editedEvent.id != null) {
       Provider.of<Events>(context, listen: false)
@@ -81,11 +81,10 @@ class _EventInfoCardState extends State<EventInfoCard> {
             ],
           ),
           Form(
-            //CHECK WITH MYLES ABOUT HOW THIS WORKS
             key: _form,
             child: Column(
               children: <Widget>[
-                Padding(
+                Container(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: TextFormField(
                     initialValue: _initValues['title'],
@@ -110,7 +109,7 @@ class _EventInfoCardState extends State<EventInfoCard> {
                     },
                   ),
                 ),
-                Padding(
+                Container(
                   padding: const EdgeInsets.only(bottom: 15.0),
                   child: TextFormField(
                     initialValue: _initValues['description'],
@@ -169,7 +168,7 @@ class _EventInfoCardState extends State<EventInfoCard> {
                   ],
                 ),
                 */
-                Padding(
+                Container(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: IconButton(
                     //height: SizeConfig.screenHeight * 0.10,
