@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -85,9 +86,10 @@ class _EventInfoCardState extends State<EventInfoCard> {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(bottom: 5.0),
+                  padding: const EdgeInsets.only(bottom: 10.0),
                   child: TextFormField(
                     initialValue: _initValues['title'],
+                    inputFormatters: [new LengthLimitingTextInputFormatter(50)],
                     keyboardType: TextInputType.emailAddress,
                     textAlign: TextAlign.center,
                     textInputAction: TextInputAction.next,
@@ -113,6 +115,7 @@ class _EventInfoCardState extends State<EventInfoCard> {
                   padding: const EdgeInsets.only(bottom: 15.0),
                   child: TextFormField(
                     initialValue: _initValues['description'],
+                    inputFormatters: [new LengthLimitingTextInputFormatter(150)],
                     keyboardType: TextInputType.multiline,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -133,7 +136,7 @@ class _EventInfoCardState extends State<EventInfoCard> {
                     },
                   ),
                 ),
-                /*Padding(
+                Padding(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: NewEventLocationText(),
                 ),
@@ -142,12 +145,12 @@ class _EventInfoCardState extends State<EventInfoCard> {
                     Counter(
                       count: 0,
                     ),
-                    AutoSizeText(
+                    Text(
                       'Activity Duration (min)',
                       maxLines: 1,
-                      style: TextStyle(fontSize: 12),
-                      minFontSize: 5,
-                      stepGranularity: 3,
+                      style: TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
+                     // minFontSize: 5,
+                     // stepGranularity: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -157,21 +160,21 @@ class _EventInfoCardState extends State<EventInfoCard> {
                     Counter(
                       count: 2,
                     ),
-                    AutoSizeText(
+                    Text(
                       'Number of people',
                       maxLines: 1,
-                      style: TextStyle(fontSize: 12),
-                      minFontSize: 5,
-                      stepGranularity: 3,
+                      style: TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
+                      //minFontSize: 5,
+                      //stepGranularity: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
-                */
+                
                 Container(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: IconButton(
-                    //height: SizeConfig.screenHeight * 0.10,
+                    iconSize: SizeConfig.screenHeight * 0.09,
                     icon: Icon(Icons.check_circle),
                     color: Colors.blue[400],
                     onPressed: _saveForm,
