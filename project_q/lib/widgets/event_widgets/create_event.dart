@@ -26,9 +26,10 @@ class _CreateEventState extends State<CreateEvent> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: ConstrainedBox(
        
-       
+      
         constraints:  BoxConstraints(
-          
+          minHeight: SizeConfig.screenHeight * 0.50,
+          maxHeight: SizeConfig.screenHeight * 0.63,
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),

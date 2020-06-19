@@ -16,26 +16,14 @@ class NewEventLocationText extends StatelessWidget {
         ),
         Container(
           width: SizeConfig.screenWidth * 0.60,
-          height: SizeConfig.screenHeight * 0.06,
-          // child: Column(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          // AutoSizeText(
-          //   'Location',
-          //   style: TextStyle(
-          //     fontSize: 16,
-          //   ),
-          // ),
+          height: SizeConfig.screenHeight * 0.07,
           child: AutoSizeText(
-            '1156 High St UC SANTA CRUZ, Santa Cruz, CA 95064',
-            style: TextStyle(fontSize: 14),
-            minFontSize: 10,
+            '1156 High St UC SANTA CRUZ luggys asshole too, Santa Cruz, CA 95064',
+            style: TextStyle(fontSize: 16),
+            minFontSize: 14,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
-          //   ],
-          // ),
         ),
       ],
     );

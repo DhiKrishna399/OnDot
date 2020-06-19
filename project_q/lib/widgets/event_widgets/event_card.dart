@@ -66,6 +66,7 @@ class _EventInfoCardState extends State<EventInfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.green[300],
       child: Column(
         children: <Widget>[
           Row(
@@ -84,9 +85,12 @@ class _EventInfoCardState extends State<EventInfoCard> {
           Form(
             key: _form,
             child: Column(
+              
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
+                  color: Colors.red[300],
+                  height: SizeConfig.screenHeight * 0.08,
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: TextFormField(
                     initialValue: _initValues['title'],
                     inputFormatters: [new LengthLimitingTextInputFormatter(50)],
@@ -113,6 +117,8 @@ class _EventInfoCardState extends State<EventInfoCard> {
                 ),
                 Container(
                   padding: const EdgeInsets.only(bottom: 15.0),
+                  height: SizeConfig.screenHeight * 0.08,
+                  color: Colors.yellow,
                   child: TextFormField(
                     initialValue: _initValues['description'],
                     inputFormatters: [new LengthLimitingTextInputFormatter(150)],
