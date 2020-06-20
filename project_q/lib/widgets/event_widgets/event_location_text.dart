@@ -14,16 +14,16 @@ class NewEventLocationText extends StatelessWidget {
           Icons.location_on,
           size: SizeConfig.screenHeight * 0.05,
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AutoSizeText('Location'),
-            AutoSizeText(
-              '1156 High St, Santa Cruz, CA 95064',
-              
-            ),
-          ],
+        Container(
+          width: SizeConfig.screenWidth * 0.60,
+          height: SizeConfig.screenHeight * 0.07,
+          child: AutoSizeText(
+            '1156 High Street Santa Cruz, CA 95064',
+            style: TextStyle(fontSize: 16),
+            minFontSize: 14,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );
