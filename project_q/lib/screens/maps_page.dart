@@ -4,12 +4,12 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:project_q/models/size_config.dart';
 import 'package:project_q/screens/settings.dart';
-import 'package:project_q/widgets/event_widgets/create_event.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:project_q/widgets/event_widgets/create_event_card.dart';
 
 import '../models/size_config.dart';
 import '../models/event_dummy.dart';
-import '../widgets/event_widgets/create_event.dart';
+
 import '../widgets/button_widgets/maps_button.dart';
 import '../widgets/card_widgets/event_card.dart';
 import './loading_screen.dart';
@@ -143,7 +143,7 @@ class _MapsPageState extends State<MapsPage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CreateEvent();
+          return CreateEventCard();
         });
   }
 }

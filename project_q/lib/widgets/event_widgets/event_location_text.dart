@@ -18,7 +18,7 @@ class NewEventLocationText extends StatelessWidget {
           width: SizeConfig.screenWidth * 0.60,
           height: SizeConfig.screenHeight * 0.07,
           child: AutoSizeText(
-            '1156 High St UC SANTA CRUZ luggys asshole too, Santa Cruz, CA 95064',
+            '1156 High Street Santa Cruz, CA 95064',
             style: TextStyle(fontSize: 16),
             minFontSize: 14,
             maxLines: 3,
