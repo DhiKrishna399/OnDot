@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_q/models/size_config.dart';
-import 'package:project_q/widgets/event_widgets/create_event.dart';
+import 'package:project_q/widgets/event_widgets/create_event_card.dart';
 import 'package:project_q/widgets/maps_page_widgets/map_widget.dart';
-
 import '../models/size_config.dart';
-import '../widgets/event_widgets/create_event.dart';
+
 
 
 class MapsPage extends StatefulWidget {
@@ -34,7 +33,7 @@ class _MapsPageState extends State<MapsPage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CreateEvent();
+          return CreateEventCard();
         });
   }
 }

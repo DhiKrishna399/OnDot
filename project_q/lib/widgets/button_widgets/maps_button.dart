@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_q/models/size_config.dart';
-import 'package:project_q/widgets/event_widgets/create_event.dart';
+
 import 'package:project_q/screens/settings.dart';
+import 'package:project_q/widgets/event_widgets/create_event_card.dart';
 
 class CreateEventButton extends StatelessWidget {
   const CreateEventButton({
@@ -18,7 +19,7 @@ class CreateEventButton extends StatelessWidget {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return CreateEvent();
+              return CreateEventCard();
             });
       },
       child: Container(
@@ -81,4 +82,3 @@ class SettingsButton extends StatelessWidget {
     );
   }
 }
-
