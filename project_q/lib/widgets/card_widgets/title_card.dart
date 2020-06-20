@@ -13,9 +13,9 @@ class TitleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    return Container(
-  
-      child: Center(
+    return Material(
+      child: Container(
+        child: Center(
           child: AutoSizeText(
             '${cardEvent.title}',
             textAlign: TextAlign.center,
@@ -24,6 +24,7 @@ class TitleCard extends StatelessWidget {
             maxLines: 3,
           ),
         ),
+      ),
     );
   }
 }

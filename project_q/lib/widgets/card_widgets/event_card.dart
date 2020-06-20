@@ -29,17 +29,15 @@ class _CardEventState extends State<CardEvent> with TickerProviderStateMixin {
     SizeConfig().init(context);
 
     return Container(
-      height: SizeConfig.screenHeight * .55,
-      width: 380,
-      color:Colors.red[400],
+      width: SizeConfig.screenWidth * 0.77,
+      //color: Colors.red[400],
       child: Stack(
         children: [
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              height: 360,
-              width: 330,
-              color: Colors.red[100],
+              height: SizeConfig.screenHeight * 0.45,
+              //color: Colors.red[100],
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Expanded(
@@ -50,11 +48,12 @@ class _CardEventState extends State<CardEvent> with TickerProviderStateMixin {
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 700),
                       curve: Curves.easeOutCirc,
-                      height: toggle ? 300 : 150,
-                      width: 290,
+                      height: toggle
+                          ? SizeConfig.screenHeight * 0.45
+                          : SizeConfig.screenHeight * 0.22,
+                      width: SizeConfig.screenWidth * 0.77,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey[600],
@@ -76,21 +75,31 @@ class _CardEventState extends State<CardEvent> with TickerProviderStateMixin {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              width: 220,
-              height: 90,
+              width: SizeConfig.screenWidth * .2,
+              height: SizeConfig.screenWidth * .27,
               child: Align(
                 alignment: Alignment.center,
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  height: toggle ? 70 : 0,
-                  width: toggle ? 70 : 0,
-                  curve: Curves.ease,
+                  duration: Duration(milliseconds: 500),
+                  height: toggle ? SizeConfig.screenWidth * .19 : 0,
+                  width: toggle ? SizeConfig.screenWidth * .19 : 0,
+                  curve: Curves.easeOutCirc,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.orange[400],
+                    boxShadow: [
+                      BoxShadow(
+                            color: Colors.grey[600],
+                            blurRadius: 8,
+                            offset: Offset(0, 5),
+                            spreadRadius: 0.1,
+                          )
+                    ],
                   ),
-                  child: Icon(Icons.arrow_upward,
-                      color: Colors.white, size: toggle ? 25 : 0),
+                  child: Center(
+                    child: Icon(Icons.arrow_upward,
+                        color: Colors.white, size: toggle ? 25 : 0),
+                  ),
                 ),
               ),
             ),

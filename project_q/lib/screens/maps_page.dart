@@ -14,7 +14,6 @@ import '../widgets/button_widgets/maps_button.dart';
 import '../widgets/card_widgets/event_card.dart';
 import './loading_screen.dart';
 
-
 class MapsPage extends StatefulWidget {
   static const routeName = '/mapsPage';
   MapsPage({Key key}) : super(key: key);
@@ -75,21 +74,30 @@ class _MapsPageState extends State<MapsPage> {
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                    child: Container(
-                    height: 400,
-                    child: CardEvent(eventDummy[2]),
-                    // child: Swiper(
-                    //     itemCount: eventDummy.length,
-                    //     scale: 0.80,
-                    //     viewportFraction: 0.66,
-                    //     itemBuilder: (context, index) {
-                    //       return CardEvent(eventDummy[index]);
-                          
-                    //     },
-                    //   ),
+                  child: Container(
+                    height: SizeConfig.screenHeight * 0.51,
+                    width: SizeConfig.screenWidth,
+                    child: Swiper(
+                      itemCount: eventDummy.length,
+                      layout: SwiperLayout.CUSTOM,
+                      customLayoutOption: CustomLayoutOption(
+                        startIndex: -1,
+                        stateCount: 5,
+                      ).addTranslate([
+                        Offset(-400, 15),
+                        Offset(-SizeConfig.screenWidth * 0.72, 15),
+                        Offset(0, 0),
+                        Offset(SizeConfig.screenWidth * 0.72, 15),
+                        Offset(400, 15),
+                      ]).addScale([0.6, 0.75, 1, 0.75, 0.6], Alignment.center),
+                      itemHeight: SizeConfig.screenHeight * 0.57,
+                      itemWidth: SizeConfig.screenWidth * 0.77,
+                      itemBuilder: (context, index) {
+                        return CardEvent(eventDummy[index]);
+                      },
+                    ),
                   ),
                 ),
-                
               ],
             )
           : LoadingScreen(), //Add this loader to prevent error message on pop up
