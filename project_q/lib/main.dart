@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'providers/auth.dart';
 import './screens/main_user_info.dart';
 import './screens/maps_page.dart';
-import './screens/home_Page.dart';
 import './screens/settings.dart';
 
 void main() => runApp(MyApp());
@@ -29,7 +28,6 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: auth.isAuth ? MapsPage() : ImGame(),
           routes: {
-            //HomePage.routeName: (ctx) => HomePage(this.googleMaps),
             MapsPage.routeName: (ctx) => MapsPage(),
             MainUserScreen.routeName: (ctx) => MainUserScreen(),
           },
