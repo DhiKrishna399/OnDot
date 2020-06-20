@@ -9,114 +9,89 @@ class DescriptionCard extends StatelessWidget {
 
   DescriptionCard(this.cardEvent);
 
+
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    return Container(
-      height: SizeConfig.screenHeight * 0.47,
-      width: SizeConfig.screenHeight * 0.35,
-      //margin: EdgeInsets.only(bottom: 120),
-      child: Stack(
-        children: [
-          Container(
-            height: SizeConfig.screenHeight * 0.42,
-            width: SizeConfig.screenHeight * 0.35,
-            padding: EdgeInsets.only(left: 10, right: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[700],
-                  blurRadius: 8,
-                  offset: Offset(0, 5),
-                  spreadRadius: 0.9,
-                )
-              ],
+    return SingleChildScrollView(
+      child: Container(
+        height: 300,
+        width: 290,
+        color: Colors.blue[100],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: Icon(Icons.close, size: 30),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Icon(Icons.close, size: 30),
-                ),
-                Container(
-                  width: SizeConfig.screenHeight * 0.35,
-                  height: SizeConfig.screenHeight * 0.12,
-                  child: AutoSizeText(
-                    '${cardEvent.title}',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                    minFontSize: 18,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Container(
-                  width: SizeConfig.screenHeight * 0.35,
-                  child: Center(
-                    child: AutoSizeText(
-                      '${cardEvent.description}',
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-                      minFontSize: 9,
-                      maxLines: 3,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                ),
-                Spacer(),
-                Center(
-                  child: Container(
-                    width: SizeConfig.screenWidth * 0.5,
-                    height: SizeConfig.screenHeight * 0.1,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.person_add),
-                            SizedBox(width: 10),
-                            Text('${cardEvent.numPeople}',
-                                style: TextStyle(fontSize: 18)),
-                            SizedBox(width: 10),
-                            Text('more people welcome',
-                                style: TextStyle(fontSize: 12))
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.timer),
-                            SizedBox(width: 10),
-                            Text('${cardEvent.duration}',
-                                style: TextStyle(fontSize: 18)),
-                            SizedBox(width: 10),
-                            Text('more minutes left',
-                                style: TextStyle(fontSize: 12))
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-              ],
+            Container(
+              //width: SizeConfig.screenHeight * 0.35,
+              height: SizeConfig.screenHeight * 0.12,
+              padding: EdgeInsets.only(left: 15, right: 18),
+              //color:Colors.red,
+              child: AutoSizeText(
+                '${cardEvent.title}',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+                minFontSize: 23,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: SizeConfig.screenWidth * .18,
-              width: SizeConfig.screenWidth * .18,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.orange[600]),
-              child: Icon(Icons.arrow_upward, color: Colors.white, size: 30),
+            Container(
+              height: SizeConfig.screenHeight * 0.09,
+              padding: EdgeInsets.only(left: 15, right: 18),
+              //color: Colors.yellow[100],
+              child: AutoSizeText(
+                  '${cardEvent.description}',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+                  minFontSize: 12,
+                  maxLines: 4,
+                  overflow: TextOverflow.fade,
+                  textAlign: TextAlign.center,
+                ),
             ),
-          ),
-        ],
+           Spacer(),
+            Container(
+              padding: EdgeInsets.only(left: 40),
+              margin: EdgeInsets.only(bottom: 55),
+              height: SizeConfig.screenHeight * 0.08,
+              color: Colors.purple[100],
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.person_add),
+                      SizedBox(width: 10),
+                      AutoSizeText(
+                        '${cardEvent.numPeople}',
+                        style: TextStyle(fontSize: 18),
+                        minFontSize: 6,
+                        overflow: TextOverflow.fade,
+                      ),
+                      SizedBox(width: 10),
+                      Text('more people welcome',
+                          style: TextStyle(fontSize: 12))
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.timer),
+                      SizedBox(width: 10),
+                      Text('${cardEvent.duration}',
+                          style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 10),
+                      Text('more minutes left', style: TextStyle(fontSize: 12))
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

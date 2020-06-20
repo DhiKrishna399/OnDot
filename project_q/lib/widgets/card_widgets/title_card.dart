@@ -14,29 +14,16 @@ class TitleCard extends StatelessWidget {
     SizeConfig().init(context);
 
     return Container(
-      height: SizeConfig.screenHeight * 0.18,
-      width: SizeConfig.screenHeight * 0.35,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[600],
-            blurRadius: 8,
-            offset: Offset(0, 5),
-            spreadRadius: 0.4,
-          )
-        ],
-      ),
+  
       child: Center(
-        child: AutoSizeText(
-          '${cardEvent.title}',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-          minFontSize: 15,
-          maxLines: 3,
+          child: AutoSizeText(
+            '${cardEvent.title}',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+            minFontSize: 15,
+            maxLines: 3,
+          ),
         ),
-      ),
     );
   }
 }

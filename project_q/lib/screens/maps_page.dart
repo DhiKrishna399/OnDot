@@ -76,16 +76,17 @@ class _MapsPageState extends State<MapsPage> {
                 Align(
                   alignment: Alignment.bottomCenter,
                     child: Container(
-                    height: 320,
-                    child: Swiper(
-                        itemCount: eventDummy.length,
-                        scale: 0.80,
-                        viewportFraction: 0.66,
-                        itemBuilder: (context, index) {
-                          return CardEvent(eventDummy[index]);
+                    height: 400,
+                    child: CardEvent(eventDummy[2]),
+                    // child: Swiper(
+                    //     itemCount: eventDummy.length,
+                    //     scale: 0.80,
+                    //     viewportFraction: 0.66,
+                    //     itemBuilder: (context, index) {
+                    //       return CardEvent(eventDummy[index]);
                           
-                        },
-                      ),
+                    //     },
+                    //   ),
                   ),
                 ),
                 
