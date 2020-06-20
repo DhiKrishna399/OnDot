@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_q/models/size_config.dart';
 
+
+import 'package:project_q/widgets/event_widgets/event_card.dart';
+
+
 import '../../models/event.dart';
 import '../../providers/events.dart';
 import 'package:project_q/widgets/event_widgets/event_card.dart';
+
 
 
 class CreateEvent extends StatefulWidget {
