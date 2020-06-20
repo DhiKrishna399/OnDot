@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:project_q/providers/events.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
@@ -16,8 +17,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
+          value: Events(),
+        ),
+        ChangeNotifierProvider.value(
           value: Auth(),
-        )
+        ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
@@ -41,8 +45,8 @@ class ImGame extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        //body: MainUserScreen(),
-        body: MapsPage(),
+        body: MainUserScreen(),
+        //body: MapsPage(),
       ),
     );
   }

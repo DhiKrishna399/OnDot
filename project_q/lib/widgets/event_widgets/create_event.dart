@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_q/models/size_config.dart';
 
+
+import 'package:project_q/widgets/event_widgets/event_card.dart';
+
+
+import '../../models/event.dart';
+import '../../providers/events.dart';
 import 'package:project_q/widgets/event_widgets/event_card.dart';
 
 
@@ -15,7 +21,7 @@ class CreateEvent extends StatefulWidget {
 class _CreateEventState extends State<CreateEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-
+  
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
