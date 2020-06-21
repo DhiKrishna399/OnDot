@@ -7,6 +7,7 @@ import 'maps_page.dart';
 import '../screens/maps_page.dart';
 import '../providers/auth.dart';
 import '../models/http_exception.dart';
+import '../models/size_config.dart';
 
 class MainUserScreen extends StatefulWidget {
   static const routeName = '/mainUserScreen';
@@ -15,9 +16,10 @@ class MainUserScreen extends StatefulWidget {
 }
 
 class _MainUserScreenState extends State<MainUserScreen> {
-  //true: login
-  //false: signup
+  //true: login UI
+  //false: signup UI
   bool userIndicator = true;
+
   GlobalKey<FormState> formKey = GlobalKey();
   var isLoading = false;
   Map<String, String> authData = {
@@ -111,11 +113,10 @@ class _MainUserScreenState extends State<MainUserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData;
-    queryData = MediaQuery.of(context);
+    SizeConfig().init(context);
 
     return Scaffold(
-          body: Container(
+        body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
@@ -138,8 +139,8 @@ class _MainUserScreenState extends State<MainUserScreen> {
             children: <Widget>[
               Container(
                 width: double.infinity,
-                height: queryData.size.height * 0.34,
-                padding: EdgeInsets.symmetric(horizontal: queryData.size.width * 0.1),
+                height: SizeConfig.screenHeight * 0.34,
+                padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.1),
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
@@ -153,7 +154,6 @@ class _MainUserScreenState extends State<MainUserScreen> {
               ),
               userIndicator
                     ? LoginPage(
-                        queryData: queryData,
                         selectorHandler: changeLogin,
                         mapsPageRoute: loadMaps,
                         authData: authData,
@@ -162,7 +162,6 @@ class _MainUserScreenState extends State<MainUserScreen> {
                         isLoading: isLoading,
                       )
                     : SignUpPage(
-                        queryData: queryData,
                         selectorHandler: changeLogin,
                         mapsPageRoute: loadMaps,
                         authData: authData,

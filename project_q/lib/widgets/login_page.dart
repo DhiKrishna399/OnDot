@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project_q/models/size_config.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage(
       {Key key,
       @required this.submitTotal,
-      @required this.queryData,
       @required this.selectorHandler,
       @required this.isLoading,
       @required this.authData,
@@ -12,7 +12,6 @@ class LoginPage extends StatefulWidget {
       @required this.mapsPageRoute})
       : super(key: key);
 
-  final MediaQueryData queryData;
   final Function selectorHandler;
   final Function mapsPageRoute;
   final Function submitTotal;
@@ -25,38 +24,22 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
  
-  final _passwordController = TextEditingController();
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('An Error Occurred!'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Okay'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    final _passwordController = TextEditingController();
+
     return SingleChildScrollView(
       child: Container(
         width: double.infinity,
-        height: widget.queryData.size.height * .66,
+        height: SizeConfig.screenHeight * .66,
         child: Column(
           children: [
             Container(
-              height: widget.queryData.size.height * 0.4,
+              height: SizeConfig.screenHeight * 0.4,
               padding: EdgeInsets.symmetric(
-                  horizontal: widget.queryData.size.width * .1),
+                  horizontal: SizeConfig.screenWidth * .1),
               child: Form(
                 key: widget.formKey,
                 child: Column(
@@ -89,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         obscureText: true,
                         textAlign: TextAlign.left,
+                        controller: _passwordController,
                         decoration: InputDecoration(
                           hintText: "Password",
                           focusedBorder: UnderlineInputBorder(
@@ -110,9 +94,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              height: widget.queryData.size.height * .13,
+              height: SizeConfig.screenHeight * .13,
               padding: EdgeInsets.symmetric(
-                  horizontal: widget.queryData.size.width * .1),
+                  horizontal: SizeConfig.screenWidth * .1),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -124,8 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Container(
-                    height: widget.queryData.size.width * .17,
-                    width: widget.queryData.size.width * .17,
+                    height: SizeConfig.screenWidth * .17,
+                    width: SizeConfig.screenWidth * .17,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Colors.indigo[900]),
                     child: IconButton(
@@ -138,10 +122,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              height: widget.queryData.size.height * .13,
+              height: SizeConfig.screenHeight * .13,
               width: double.infinity,
               padding: EdgeInsets.symmetric(
-                  horizontal: widget.queryData.size.width * .1),
+                  horizontal: SizeConfig.screenWidth * .1),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
