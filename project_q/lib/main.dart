@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
           value: Auth(),
         ),
       ],
+      //Check if user is logged in, boots up the app with root/routes setup
+      //Make sure to set up routes and reference main_user_info.dart
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           title: 'IMGAME',
