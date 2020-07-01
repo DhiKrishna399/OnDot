@@ -5,29 +5,25 @@ import 'package:project_q/widgets/event_widgets/create_event_card.dart';
 import 'package:project_q/widgets/maps_page_widgets/map_widget.dart';
 import '../models/size_config.dart';
 
-
-
-class MapsPage extends StatefulWidget {
-  static const routeName = '/mapsPage';
-  MapsPage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  static const routeName = '/HomePage';
+  HomePage({Key key}) : super(key: key);
 
   @override
-  _MapsPageState createState() => _MapsPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MapsPageState extends State<MapsPage> {
-
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: MapWidget(),
-      
+    return Scaffold(
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: MapWidget(),
+      ),
     );
   }
-
 
   void _createNewEvent(BuildContext ctx) {
     showDialog(

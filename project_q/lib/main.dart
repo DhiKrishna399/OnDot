@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
 import './screens/main_user_info.dart';
-import './screens/maps_page.dart';
+import './screens/home_screen.dart';
 import './screens/settings.dart';
 
 void main() => runApp(MyApp());
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         builder: (ctx, auth, _) => MaterialApp(
           title: 'IMGAME',
           debugShowCheckedModeBanner: false,
-          home: auth.isAuth ? MapsPage() : ImGame(),
+          home: auth.isAuth ? HomePage() : ImGame(),
           routes: {
-            MapsPage.routeName: (ctx) => MapsPage(),
+            HomePage.routeName: (ctx) => HomePage(),
             MainUserScreen.routeName: (ctx) => MainUserScreen(),
           },
         ),
@@ -46,7 +46,7 @@ class ImGame extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         body: MainUserScreen(),
-        //body: MapsPage(),
+        //body: HomePage(),
       ),
     );
   }

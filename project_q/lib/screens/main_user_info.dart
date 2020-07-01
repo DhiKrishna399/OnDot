@@ -3,8 +3,7 @@ import 'package:project_q/widgets/signup_page..dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/login_page.dart';
-import 'maps_page.dart';
-import '../screens/maps_page.dart';
+import '../screens/home_screen.dart';
 import '../providers/auth.dart';
 import '../models/http_exception.dart';
 import '../models/size_config.dart';
@@ -70,7 +69,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
       }
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MapsPage()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed';
@@ -104,12 +103,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
     });
   }
 
-  void loadMaps() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MapsPage()),
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +149,6 @@ class _MainUserScreenState extends State<MainUserScreen> {
               userIndicator
                     ? LoginPage(
                         selectorHandler: changeLogin,
-                        mapsPageRoute: loadMaps,
                         authData: authData,
                         formKey: formKey,
                         submitTotal: _submit,
@@ -163,7 +156,6 @@ class _MainUserScreenState extends State<MainUserScreen> {
                       )
                     : SignUpPage(
                         selectorHandler: changeLogin,
-                        mapsPageRoute: loadMaps,
                         authData: authData,
                         formKey: formKey,
                         submitTotal: _submit,

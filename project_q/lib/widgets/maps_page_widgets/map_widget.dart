@@ -87,30 +87,6 @@ class _MapWidgetState extends State<MapWidget> {
     center = position.target;
   }
 
-  void _onMapTypeButtonPressed() {
-    setState(() {
-      _currentMapType =
-          _currentMapType == MapType.normal ? MapType.hybrid : MapType.normal;
-    });
-  }
-
-  void _onAddMarkerButtonPressed() {
-    setState(() {
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(center.toString()),
-        position: center,
-        infoWindow: InfoWindow(
-          title: _currentPosition.latitude.toString() +
-              ", " +
-              _currentPosition.longitude.toString(),
-          snippet: '5 Star Rating',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-    });
-  }
-
   _getLocation() {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 
