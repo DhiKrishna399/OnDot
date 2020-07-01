@@ -6,14 +6,12 @@ class SignUpPage extends StatefulWidget {
     Key key,
     @required this.submitTotal,
     @required this.selectorHandler,
-    @required this.isLoading,
     @required this.authData,
     @required this.formKey,
   }) : super(key: key);
 
   final Function selectorHandler;
   final Function submitTotal;
-  final bool isLoading;
   final Map<String, String> authData;
   final GlobalKey<FormState> formKey;
 
@@ -163,7 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   InkWell(
                     child: Text(
-                      'Make a new account',
+                      'Already have an account',
                       style: TextStyle(
                           decoration: TextDecoration.underline,
                           fontSize: 13,

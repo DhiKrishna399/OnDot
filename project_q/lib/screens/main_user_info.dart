@@ -152,14 +152,12 @@ class _MainUserScreenState extends State<MainUserScreen> {
                         authData: authData,
                         formKey: formKey,
                         submitTotal: _submit,
-                        isLoading: isLoading,
                       )
                     : SignUpPage(
                         selectorHandler: changeLogin,
                         authData: authData,
                         formKey: formKey,
                         submitTotal: _submit,
-                        isLoading: isLoading,
                       ),
             ],
           ),

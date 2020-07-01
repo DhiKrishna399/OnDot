@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_q/models/size_config.dart';
+import 'package:project_q/screens/loading_screen.dart';
 import 'package:project_q/widgets/event_widgets/create_event_card.dart';
-import 'package:project_q/widgets/maps_page_widgets/map_widget.dart';
+import 'package:project_q/widgets/home_screen_widgets/carousel_events.dart';
+import 'package:project_q/widgets/home_screen_widgets/home_func_button.dart';
+import 'package:project_q/widgets/home_screen_widgets/map_widget.dart';
 import '../models/size_config.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,13 +17,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  bool isLoading = true;
+  
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       body: WillPopScope(
         onWillPop: () async => false,
-        child: MapWidget(),
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          child: isLoading ? Stack(
+            children: [
+              MapWidget(),
+              HomeFuncButton(),
+              EventCarousel(),
+            ],
+          ) : LoadingScreen()
+        ),
       ),
     );
   }
