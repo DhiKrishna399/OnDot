@@ -18,28 +18,33 @@ class CreateEventCard extends StatefulWidget {
 
 class _CreateEventCardState extends State<CreateEventCard> {
   final _form = GlobalKey<FormState>();
-  var _editedEvent = Event(
-    title: '',
-    description: '',
-    id: null,
-  );
-  var _initValues = {
-    'title': '',
-    'description': '',
-  };
-  var _isInit = true;
+
+  var _isInit;
+  var _editedEvent;
+  var _initValues;
 
   @override
   void initState() {
+    _editedEvent = Event(
+      title: '',
+      description: '',
+      id: null,
+    );
+    _initValues = {
+      'title': '',
+      'description': '',
+    };
+
+    _isInit = true;
     super.initState();
   }
 
   void didChangeDependencies() {
     if (_isInit) {
-      final productId = ModalRoute.of(context).settings.arguments as String;
-      if (productId != null) {
+      final eventId = ModalRoute.of(context).settings.arguments as String;
+      if (eventId != null) {
         _editedEvent =
-            Provider.of<Events>(context, listen: false).findById(productId);
+            Provider.of<Events>(context, listen: false).findById(eventId);
         _initValues = {
           'title': _editedEvent.title,
           'description': _editedEvent.description,
@@ -72,8 +77,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Card(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          //color: Colors.red[300],
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           child: Stack(
             overflow: Overflow.visible,
             children: [
@@ -82,7 +86,6 @@ class _CreateEventCardState extends State<CreateEventCard> {
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    
                     child: Padding(
                       padding: const EdgeInsets.only(right: 5.0),
                       child: IconButton(
@@ -97,66 +100,69 @@ class _CreateEventCardState extends State<CreateEventCard> {
                     ),
                   ),
                   Form(
-                    key: _form,
-                    child: Container(
-                      //color: Colors.greenAccent,
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: TextFormField(
-                        initialValue: _initValues['title'],
-                        inputFormatters: [
-                          new LengthLimitingTextInputFormatter(50)
+                      key: _form,
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            child: TextFormField(
+                              initialValue: _initValues['title'],
+                              inputFormatters: [
+                                new LengthLimitingTextInputFormatter(50)
+                              ],
+                              keyboardType: TextInputType.emailAddress,
+                              textAlign: TextAlign.left,
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                hintText: "Event Title",
+                              ),
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Event Title Required!';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _editedEvent = Event(
+                                  title: value,
+                                  description: _editedEvent.description,
+                                  id: _editedEvent.id,
+                                );
+                              },
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 15.0),
+                            height: SizeConfig.screenHeight * 0.08,
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            child: TextFormField(
+                              initialValue: _initValues['description'],
+                              inputFormatters: [
+                                new LengthLimitingTextInputFormatter(150)
+                              ],
+                              keyboardType: TextInputType.multiline,
+                              textAlign: TextAlign.left,
+                              decoration: InputDecoration(
+                                hintText: "Activity Description",
+                              ),
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Description required!';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _editedEvent = Event(
+                                  title: _editedEvent.title,
+                                  description: value,
+                                  id: _editedEvent.id,
+                                );
+                              },
+                            ),
+                          ),
                         ],
-                        keyboardType: TextInputType.emailAddress,
-                        textAlign: TextAlign.center,
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          hintText: "Event Title",
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Event Title Required!';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _editedEvent = Event(
-                            title: value,
-                            description: _editedEvent.description,
-                            id: _editedEvent.id,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 15.0),
-                    height: SizeConfig.screenHeight * 0.08,
-                    //color: Colors.yellow,
-                    child: TextFormField(
-                      initialValue: _initValues['description'],
-                      inputFormatters: [
-                        new LengthLimitingTextInputFormatter(150)
-                      ],
-                      keyboardType: TextInputType.multiline,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: "Activity Description",
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Description required!';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _editedEvent = Event(
-                          title: _editedEvent.title,
-                          description: value,
-                          id: _editedEvent.id,
-                        );
-                      },
-                    ),
-                  ),
+                      )),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5.0),
                     child: NewEventLocationText(),
@@ -171,8 +177,6 @@ class _CreateEventCardState extends State<CreateEventCard> {
                         maxLines: 1,
                         style:
                             TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
-                        // minFontSize: 5,
-                        // stepGranularity: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
@@ -191,22 +195,30 @@ class _CreateEventCardState extends State<CreateEventCard> {
                       ),
                     ],
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.05,),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.05,
+                  ),
                 ],
               ),
               Positioned(
-                              child: Container(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: IconButton(
-                    iconSize: SizeConfig.screenHeight * 0.09,
-                    icon: Icon(Icons.check_circle),
-                    color: Colors.blue[400],
-                    onPressed: _saveForm,
+                child: GestureDetector(
+                  onTap: () {
+                    _saveForm();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.indigo[600]),
+                    child: Center(
+                      child: Icon(Icons.check, color: Colors.white, size: 30),
+                    ),
                   ),
                 ),
                 right: 0,
                 left: 0,
-                bottom: -34,
+                bottom: -33,
               ),
             ],
           ),
