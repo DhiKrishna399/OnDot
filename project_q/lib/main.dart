@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:project_q/providers/events.dart';
+import 'package:project_q/providers/maps_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Auth(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => MapsProvider(),
+        )
       ],
       //Check if user is logged in, boots up the app with root/routes setup
       //Make sure to set up routes and reference main_user_info.dart
@@ -29,10 +33,10 @@ class MyApp extends StatelessWidget {
           title: 'IMGAME',
           debugShowCheckedModeBanner: false,
           home: auth.isAuth ? HomePage() : ImGame(),
-          routes: {
-            HomePage.routeName: (ctx) => HomePage(),
-            MainUserScreen.routeName: (ctx) => MainUserScreen(),
-          },
+          // routes: {
+          //   //HomePage.routeName: (ctx) => HomePage(),
+          //   //MainUserScreen.routeName: (ctx) => MainUserScreen(),
+          // },
         ),
       ),
     );

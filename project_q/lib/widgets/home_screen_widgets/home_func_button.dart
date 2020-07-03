@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:project_q/models/size_config.dart';
-import 'package:project_q/widgets/button_widgets/maps_button.dart';
+import 'package:project_q/widgets/button_widgets/maps_func_button.dart';
 
 
 class HomeFuncButton extends StatelessWidget {
