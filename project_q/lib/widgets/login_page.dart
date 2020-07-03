@@ -6,16 +6,13 @@ class LoginPage extends StatefulWidget {
       {Key key,
       @required this.submitTotal,
       @required this.selectorHandler,
-      @required this.isLoading,
       @required this.authData,
       @required this.formKey,
-      @required this.mapsPageRoute})
+      })
       : super(key: key);
 
   final Function selectorHandler;
-  final Function mapsPageRoute;
   final Function submitTotal;
-  final bool isLoading;
   final Map<String, String> authData;
   final GlobalKey<FormState> formKey;
   @override

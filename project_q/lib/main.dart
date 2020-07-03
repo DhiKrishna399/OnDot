@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:project_q/providers/events.dart';
+import 'package:project_q/providers/maps_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
 import './screens/main_user_info.dart';
-import './screens/maps_page.dart';
+import './screens/home_screen.dart';
 import './screens/settings.dart';
 
 void main() => runApp(MyApp());
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Auth(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => MapsProvider(),
+        )
       ],
       //Check if user is logged in, boots up the app with root/routes setup
       //Make sure to set up routes and reference main_user_info.dart
@@ -28,11 +32,11 @@ class MyApp extends StatelessWidget {
         builder: (ctx, auth, _) => MaterialApp(
           title: 'IMGAME',
           debugShowCheckedModeBanner: false,
-          home: auth.isAuth ? MapsPage() : ImGame(),
-          routes: {
-            MapsPage.routeName: (ctx) => MapsPage(),
-            MainUserScreen.routeName: (ctx) => MainUserScreen(),
-          },
+          home: auth.isAuth ? HomePage() : ImGame(),
+          // routes: {
+          //   //HomePage.routeName: (ctx) => HomePage(),
+          //   //MainUserScreen.routeName: (ctx) => MainUserScreen(),
+          // },
         ),
       ),
     );
@@ -46,7 +50,7 @@ class ImGame extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         body: MainUserScreen(),
-        //body: MapsPage(),
+        //body: HomePage(),
       ),
     );
   }
