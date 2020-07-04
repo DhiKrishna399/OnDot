@@ -2,20 +2,41 @@ import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:project_q/models/event_dummy.dart';
 
 class MapsProvider extends ChangeNotifier {
 
   MapType currentMapType = MapType.normal;
-  Set<Marker> markers = {};
+  Set<Marker> eventMarkers = {};
   Position currentPosition;
   LatLng center;
+  GoogleMapController mapsController;
   
   bool isLoading = false;
+
+  void displayEventMarkers(){
+    eventDummy.forEach((element) {
+      eventMarkers.add(
+        Marker(
+          markerId: MarkerId(element.title),
+          draggable: false,
+          infoWindow: InfoWindow(title: element.title, snippet: element.description),
+          position: element.locationCoords,
+        ),
+      );
+    });
+  }
 
   void changeLoadingState() {
     isLoading = true;
     notifyListeners();
   }
+
+  void mapCreated(GoogleMapController mapsController){
+     mapsController = mapsController;
+     notifyListeners();
+  }
+
 
   void onCameraMove(CameraPosition position) {
     center = position.target;

@@ -1,5 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class Event {
@@ -9,6 +10,7 @@ class Event {
   int numPeople;
   int duration;
   Position position;
+  LatLng locationCoords;
 
   Event({
     @required this.title,
@@ -16,7 +18,8 @@ class Event {
     @required this.id,
     this.numPeople,
     this.duration,
-    this.position
+    this.position,
+    this.locationCoords,
   });
 
   void setTitle(String t){
