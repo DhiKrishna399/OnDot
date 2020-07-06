@@ -17,7 +17,7 @@ class Events with ChangeNotifier {
     return _activities.firstWhere((prod) => prod.id == id);
   }
 
-  Future<void> fetchAndSetProducts() async {
+  Future<void> fetchAndSetEvents() async {
     const url = '';
     try{
       final response = await http.get(url);
