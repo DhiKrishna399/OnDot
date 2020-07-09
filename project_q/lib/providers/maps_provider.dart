@@ -12,7 +12,7 @@ class MapsProvider extends ChangeNotifier {
   Position currentPosition;
   LatLng center;
 
-  GoogleMapController mapsController;
+  Completer<GoogleMapController> mapsController = new Completer();
 
   bool isLoading = false;
 
@@ -35,8 +35,9 @@ class MapsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void mapCreated(GoogleMapController mapsController) {
-    mapsController = mapsController;
+  void mapCreated(GoogleMapController controller) {
+    mapsController.complete(controller);
+    //mapsController = mapsController;
     notifyListeners();
   }
 
@@ -59,8 +60,20 @@ class MapsProvider extends ChangeNotifier {
     });
   }
 
+  Future<void> goToLocation(int index) async {
+    final GoogleMapController controller = await mapsController.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: eventDummy[index].locationCoords,
+        zoom: 17,
+        tilt: 20,
+      ),
+    ));
+    notifyListeners();
+  }
+
   // void moveCamera() {
-    
+
   //   mapsController.animateCamera(
   //     CameraUpdate.newCameraPosition(
   //       CameraPosition(
@@ -71,7 +84,6 @@ class MapsProvider extends ChangeNotifier {
   //       ),
   //     ),
   //   );
-  //   mapCreated(mapsController);
   //   notifyListeners();
   // }
 
@@ -81,7 +93,7 @@ class MapsProvider extends ChangeNotifier {
   //   final p = CameraPosition(
   //       target: LatLng(38.016536, -122.137974),
   //       zoom: 14.4746);
-         
+
   //   c.animateCamera(CameraUpdate.newCameraPosition(p));
 
   //   notifyListeners();

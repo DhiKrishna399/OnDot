@@ -33,6 +33,7 @@ class _EventCarouselState extends State<EventCarousel> {
       prevPage = pageController.page.toInt();
       //Provider.of<MapsProvider>(context, listen: false).test();
       //Provider.of<MapsProvider>(context, listen: false).moveCamera(pageController);
+      //Provider.of<MapsProvider>(context, listen: false).goToLocation(pageController.page.toInt());
 
     }
   }
@@ -57,9 +58,7 @@ class _EventCarouselState extends State<EventCarousel> {
       },
       child: InkWell(
         onTap: () {
-          //Provider.of<MapsProvider>(context, listen: false).moveCamera();
-          //Provider.of<MapsProvider>(context, listen: false).moveCamera(pageController);
-          //print(pageController.page.toInt());
+          Provider.of<MapsProvider>(context, listen: false).goToLocation(index);
         },
         child: Align(
           alignment: Alignment.bottomCenter,
@@ -100,7 +99,6 @@ class _EventCarouselState extends State<EventCarousel> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        //color: Colors.yellow[100],
         height: SizeConfig.screenHeight * .45,
         width: SizeConfig.screenWidth,
         child: PageView.builder(
