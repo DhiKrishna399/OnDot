@@ -1,23 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project_q/authentication/sign_up.dart';
 import 'package:project_q/models/size_config.dart';
-import 'package:project_q/services/auth_service.dart';
 
-class SignIn extends StatefulWidget {
-  SignIn({Key key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  SignUp({Key key}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService();
-
-  // text field states
-  String email = '';
-  String password = '';
-
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -30,8 +21,8 @@ class _SignInState extends State<SignIn> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.green[50],
-              Colors.tealAccent[100],
+              Colors.yellow[50],
+              Colors.yellow[200],
             ],
           ),
         ),
@@ -46,7 +37,7 @@ class _SignInState extends State<SignIn> {
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    'Welcome\nBack',
+                    "Create\nAccount",
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.w200,
@@ -75,6 +66,23 @@ class _SignInState extends State<SignIn> {
                                 textAlign: TextAlign.left,
                                 cursorColor: Colors.indigo[900],
                                 decoration: InputDecoration(
+                                  hintText: "Name",
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.indigo[900]),
+                                  ),
+                                ),
+                                validator: (value) {},
+                                onSaved: (value) {},
+                              ),
+                            ),
+                            Container(
+                              height: 50,
+                              child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                textAlign: TextAlign.left,
+                                cursorColor: Colors.indigo[900],
+                                decoration: InputDecoration(
                                   hintText: "Email",
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide:
@@ -86,9 +94,7 @@ class _SignInState extends State<SignIn> {
                                     return 'Invalid email!';
                                   }
                                 },
-                                onChanged: (value) {
-                                  //setState of email var
-                                  setState(() => email = value);
+                                onSaved: (value) {
                                   //widget.authData['email'] = value;
                                 },
                               ),
@@ -111,12 +117,28 @@ class _SignInState extends State<SignIn> {
                                     return 'Password is too short!';
                                   }
                                 },
-                                onChanged: (value) {
-                                  //setState of password var
-                                  setState(() => password = value);
+                                onSaved: (value) {
                                   //widget.authData['password'] = value;
                                 },
                               ),
+                            ),
+                            Container(
+                              height: 50,
+                              child: TextFormField(
+                                  obscureText: true,
+                                  textAlign: TextAlign.left,
+                                  decoration: InputDecoration(
+                                    hintText: "Confirm Password",
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.indigo[900]),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    // if (value != _passwordController.text) {
+                                    //   return 'Passwords do not match!';
+                                    // }
+                                  }),
                             ),
                           ],
                         ),
@@ -130,7 +152,7 @@ class _SignInState extends State<SignIn> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Sign In',
+                            'Sign Up',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w600,
@@ -145,10 +167,7 @@ class _SignInState extends State<SignIn> {
                             child: IconButton(
                               icon: Icon(Icons.arrow_forward),
                               color: Colors.white,
-                              onPressed: () async {
-                                print(email);
-                                print(password);
-                              }, //()=> widget.submitTotal(),
+                              //onPressed: () => widget.submitTotal(),
                             ),
                           ),
                         ],
@@ -164,32 +183,14 @@ class _SignInState extends State<SignIn> {
                         children: [
                           InkWell(
                             child: Text(
-                              'Make a new account',
+                              'Already have an account',
                               style: TextStyle(
                                   decoration: TextDecoration.underline,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500),
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignUp()),
-                              );
-                              email = '';
-                              password = '';
-                            },
+                            onTap: () => Navigator.pop(context),
                           ),
-                          InkWell(
-                            child: Text(
-                              'Forgot Password',
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            onTap: () {},
-                          )
                         ],
                       ),
                     )
