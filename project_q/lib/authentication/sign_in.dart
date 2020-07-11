@@ -5,7 +5,8 @@ import 'package:project_q/models/size_config.dart';
 import 'package:project_q/services/auth_service.dart';
 
 class SignIn extends StatefulWidget {
-  SignIn({Key key}) : super(key: key);
+  final Function togglePage;
+  SignIn({this.togglePage});
 
   @override
   _SignInState createState() => _SignInState();
@@ -13,10 +14,12 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   // text field states
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,7 @@ class _SignInState extends State<SignIn> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * .1),
                       child: Form(
-                        //key: widget.formKey,
+                        key: _formKey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
@@ -107,8 +110,8 @@ class _SignInState extends State<SignIn> {
                                   ),
                                 ),
                                 validator: (value) {
-                                  if (value.isEmpty || value.length < 5) {
-                                    return 'Password is too short!';
+                                  if (value.isEmpty) {
+                                    return 'Enter a password!';
                                   }
                                 },
                                 onChanged: (value) {
@@ -146,9 +149,12 @@ class _SignInState extends State<SignIn> {
                               icon: Icon(Icons.arrow_forward),
                               color: Colors.white,
                               onPressed: () async {
-                                print(email);
-                                print(password);
-                              }, //()=> widget.submitTotal(),
+                                dynamic result = await _auth.signInWithEmail_Password(email, password);
+                                if( _formKey.currentState.validate()){
+                                  setState(() => error = "Account invalid :(");
+                                }
+                                
+                              }, 
                             ),
                           ),
                         ],
@@ -171,13 +177,7 @@ class _SignInState extends State<SignIn> {
                                   fontWeight: FontWeight.w500),
                             ),
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignUp()),
-                              );
-                              email = '';
-                              password = '';
+                              widget.togglePage();
                             },
                           ),
                           InkWell(

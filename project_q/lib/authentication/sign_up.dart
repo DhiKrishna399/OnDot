@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:project_q/models/size_config.dart';
+import 'package:project_q/services/auth_service.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({Key key}) : super(key: key);
+  final Function togglePage;
+  SignUp({this.togglePage});
 
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  String name = '';
+  String email = '';
+  String password = '';
+  String error = '';
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -55,7 +64,7 @@ class _SignUpState extends State<SignUp> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * .1),
                       child: Form(
-                        //key: widget.formKey,
+                        key: _formKey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
@@ -72,8 +81,14 @@ class _SignUpState extends State<SignUp> {
                                         BorderSide(color: Colors.indigo[900]),
                                   ),
                                 ),
-                                validator: (value) {},
-                                onSaved: (value) {},
+                                validator: (value) {
+                                  if(value.isEmpty){
+                                    return 'Enter your name!';
+                                  }
+                                },
+                                onChanged: (value) {
+                                  setState(() => name = value);
+                                },
                               ),
                             ),
                             Container(
@@ -94,8 +109,8 @@ class _SignUpState extends State<SignUp> {
                                     return 'Invalid email!';
                                   }
                                 },
-                                onSaved: (value) {
-                                  //widget.authData['email'] = value;
+                                onChanged: (value) {
+                                  setState(() => email = value);
                                 },
                               ),
                             ),
@@ -117,8 +132,8 @@ class _SignUpState extends State<SignUp> {
                                     return 'Password is too short!';
                                   }
                                 },
-                                onSaved: (value) {
-                                  //widget.authData['password'] = value;
+                                onChanged: (value) {
+                                  setState(() => password = value);
                                 },
                               ),
                             ),
@@ -135,9 +150,9 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   ),
                                   validator: (value) {
-                                    // if (value != _passwordController.text) {
-                                    //   return 'Passwords do not match!';
-                                    // }
+                                    if (value != password) {
+                                      return 'Passwords do not match!';
+                                    }
                                   }),
                             ),
                           ],
@@ -167,7 +182,14 @@ class _SignUpState extends State<SignUp> {
                             child: IconButton(
                               icon: Icon(Icons.arrow_forward),
                               color: Colors.white,
-                              //onPressed: () => widget.submitTotal(),
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  dynamic result = await _auth.registerNewUser(name, email, password);
+                                  if(result == null){
+                                    setState(() => error = "Error occured");
+                                  }
+                                }
+                              },
                             ),
                           ),
                         ],
@@ -189,7 +211,9 @@ class _SignUpState extends State<SignUp> {
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500),
                             ),
-                            onTap: () => Navigator.pop(context),
+                            onTap: () {
+                              widget.togglePage();
+                            },
                           ),
                         ],
                       ),
