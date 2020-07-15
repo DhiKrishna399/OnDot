@@ -37,7 +37,7 @@ class _CardEventState extends State<CardEvent> with TickerProviderStateMixin {
             alignment: Alignment.topCenter,
             child: Container(
               height: SizeConfig.screenHeight * 0.45,
-              //color: Colors.red[100],
+              color: Colors.red[100],
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Expanded(
