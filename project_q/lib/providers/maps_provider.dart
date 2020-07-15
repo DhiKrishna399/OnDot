@@ -11,10 +11,11 @@ class MapsProvider extends ChangeNotifier {
   Set<Marker> eventMarkers = {};
   Position currentPosition;
   LatLng center;
+  bool isLoading = false;
 
   Completer<GoogleMapController> mapsController = new Completer();
 
-  bool isLoading = false;
+
 
   void displayEventMarkers() {
     eventDummy.forEach((element) {
@@ -58,6 +59,8 @@ class MapsProvider extends ChangeNotifier {
     }).catchError((e) {
       print(e);
     });
+
+
   }
 
   Future<void> goToLocation(int index) async {
@@ -71,33 +74,6 @@ class MapsProvider extends ChangeNotifier {
     ));
     notifyListeners();
   }
-
-  // void moveCamera() {
-
-  //   mapsController.animateCamera(
-  //     CameraUpdate.newCameraPosition(
-  //       CameraPosition(
-  //         target: LatLng(38.016536, -122.137974),
-  //         zoom: 14,
-  //         bearing: 45,
-  //         tilt: 45,
-  //       ),
-  //     ),
-  //   );
-  //   notifyListeners();
-  // }
-
-  // Future<void> animateTo() async {
-  //   final GoogleMapController c = await mapsController.future;
-
-  //   final p = CameraPosition(
-  //       target: LatLng(38.016536, -122.137974),
-  //       zoom: 14.4746);
-
-  //   c.animateCamera(CameraUpdate.newCameraPosition(p));
-
-  //   notifyListeners();
-  // }
 
   void test() {
     print('hello');

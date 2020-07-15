@@ -20,6 +20,7 @@ class EventCarousel extends StatefulWidget {
 class _EventCarouselState extends State<EventCarousel> {
   PageController pageController;
   int prevPage;
+  bool toggleBigSmallCard = true;
 
   void initState() {
     super.initState();
@@ -31,10 +32,11 @@ class _EventCarouselState extends State<EventCarousel> {
   void _onScroll() {
     if (pageController.page.toInt() != prevPage) {
       prevPage = pageController.page.toInt();
-      //Provider.of<MapsProvider>(context, listen: false).test();
-      //Provider.of<MapsProvider>(context, listen: false).moveCamera(pageController);
-      //Provider.of<MapsProvider>(context, listen: false).goToLocation(pageController.page.toInt());
-
+    }
+    if (toggleBigSmallCard == false) {
+      setState(() {
+        toggleBigSmallCard = !toggleBigSmallCard;
+      });
     }
   }
 
@@ -45,20 +47,33 @@ class _EventCarouselState extends State<EventCarousel> {
         double value = 1;
         if (pageController.position.haveDimensions) {
           value = pageController.page - index;
-          value = (1 - (value.abs() * 0.34) + 0.06).clamp(0.0, 1.0);
+          value = (1 - (value.abs() * 0.1) + 0.06).clamp(0.0, 1.0);
         }
         return Center(
-          child: Container(
-            margin: EdgeInsets.only(top: 100, left: 10, right: 10),            
-            height: Curves.easeInOut.transform(value) * 125.0,
-            width: Curves.easeInOut.transform(value) * 350.0,
-            child: widget,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: (index != pageController.page)
+                ? Container(
+                    margin: EdgeInsets.only(bottom: 30, left: 10, right: 10),
+                    height: Curves.easeInOut.transform(value) * 125.0,
+                    width: Curves.easeInOut.transform(value) * 370.0,
+                    child: widget,
+                  )
+                : Container(
+                    margin: EdgeInsets.only(bottom: 30, left: 10, right: 10),
+                    height: Curves.easeInOut.transform(value) * 300.0,
+                    width: Curves.easeInOut.transform(value) * 370.0,
+                    child: widget,
+                  ),
           ),
         );
       },
       child: InkWell(
         onTap: () {
           Provider.of<MapsProvider>(context, listen: false).goToLocation(index);
+          setState(() {
+            toggleBigSmallCard = !toggleBigSmallCard;
+          });
         },
         child: Align(
           alignment: Alignment.bottomCenter,
@@ -98,21 +113,24 @@ class _EventCarouselState extends State<EventCarousel> {
 
     return Align(
       alignment: Alignment.bottomCenter,
-      child: Container(
-        height: SizeConfig.screenHeight * .45,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        height: toggleBigSmallCard
+            ? SizeConfig.screenHeight * .26
+            : SizeConfig.screenHeight * .45,
         width: SizeConfig.screenWidth,
-        child: PageView.builder(
-          controller: pageController,
-          itemCount: eventDummy.length,
-          itemBuilder: (BuildContext context, int index) {
-            return _eventCardList(index);
-          },
+        child: IgnorePointer(
+          ignoring: false,
+          ignoringSemantics: true,
+          child: PageView.builder(
+            controller: pageController,
+            itemCount: eventDummy.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _eventCardList(index);
+            },
+          ),
         ),
       ),
     );
-  }
-
-  void moveCamera(){
-    
   }
 }
