@@ -19,55 +19,62 @@ class CreateEventCard extends StatefulWidget {
 class _CreateEventCardState extends State<CreateEventCard> {
   final _form = GlobalKey<FormState>();
 
-  var _isInit;
-  var _editedEvent;
-  var _initValues;
+  String eventName = '';
+  String eventDescription = '';
+  //For now using string, but should be coordinate position
+  String eventLocation = '';
+  int eventNumPeople = 2;
+  int eventDuration = 0;
 
-  @override
-  void initState() {
-    _editedEvent = Event(
-      title: '',
-      description: '',
-      id: null,
-    );
-    _initValues = {
-      'title': '',
-      'description': '',
-    };
+  // var _editedEvent = Event(
+  //   title: '',
+  //   description: '',
+  //   id: null,
+  // );
+  // var _initValues = {
+  //   'title': '',
+  //   'description': '',
+  // };
+  // var _isInit = true;
 
-    _isInit = true;
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
-  void didChangeDependencies() {
-    if (_isInit) {
-      final eventId = ModalRoute.of(context).settings.arguments as String;
-      if (eventId != null) {
-        _editedEvent =
-            Provider.of<Events>(context, listen: false).findById(eventId);
-        _initValues = {
-          'title': _editedEvent.title,
-          'description': _editedEvent.description,
-        };
-      }
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
+  // void didChangeDependencies() {
+  //   if (_isInit) {
+  //     final productId = ModalRoute.of(context).settings.arguments as String;
+  //     if (productId != null) {
+  //       _editedEvent =
+  //           Provider.of<Events>(context, listen: false).findById(productId);
+  //       _initValues = {
+  //         'title': _editedEvent.title,
+  //         'description': _editedEvent.description,
+  //       };
+  //     }
+  //   }
+  //   _isInit = false;
+  //   super.didChangeDependencies();
+  // }
 
-  void _saveForm() {
-    final isValid = _form.currentState.validate();
-    if (!isValid) {
-      return;
-    }
-    _form.currentState.save();
-    if (_editedEvent.id != null) {
-      Provider.of<Events>(context, listen: false)
-          .updateEvent(_editedEvent.id, _editedEvent);
-    } else {
-      Provider.of<Events>(context, listen: false).addEvent(_editedEvent);
-    }
-    Navigator.of(context).pop();
+  // void _saveForm() {
+  //   final isValid = _form.currentState.validate();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   _form.currentState.save();
+  //   if (_editedEvent.id != null) {
+  //     Provider.of<Events>(context, listen: false)
+  //         .updateEvent(_editedEvent.id, _editedEvent);
+  //   } else {
+  //     Provider.of<Events>(context, listen: false).addEvent(_editedEvent);
+  //   }
+  //   Navigator.of(context).pop();
+  // }
+
+  void _saveForm(){
+
   }
 
   @override
@@ -100,69 +107,60 @@ class _CreateEventCardState extends State<CreateEventCard> {
                     ),
                   ),
                   Form(
-                      key: _form,
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            margin: EdgeInsets.symmetric(horizontal: 20),
-                            child: TextFormField(
-                              initialValue: _initValues['title'],
-                              inputFormatters: [
-                                new LengthLimitingTextInputFormatter(50)
-                              ],
-                              keyboardType: TextInputType.emailAddress,
-                              textAlign: TextAlign.left,
-                              textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
-                                hintText: "Event Title",
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Event Title Required!';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _editedEvent = Event(
-                                  title: value,
-                                  description: _editedEvent.description,
-                                  id: _editedEvent.id,
-                                );
-                              },
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(bottom: 15.0),
-                            height: SizeConfig.screenHeight * 0.08,
-                            margin: EdgeInsets.symmetric(horizontal: 20),
-                            child: TextFormField(
-                              initialValue: _initValues['description'],
-                              inputFormatters: [
-                                new LengthLimitingTextInputFormatter(150)
-                              ],
-                              keyboardType: TextInputType.multiline,
-                              textAlign: TextAlign.left,
-                              decoration: InputDecoration(
-                                hintText: "Activity Description",
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Description required!';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _editedEvent = Event(
-                                  title: _editedEvent.title,
-                                  description: value,
-                                  id: _editedEvent.id,
-                                );
-                              },
-                            ),
-                          ),
+
+                    key: _form,
+                    child: Container(
+                      //color: Colors.greenAccent,
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: TextFormField(
+                        //initialValue: _initValues['title'],
+                        inputFormatters: [
+                          new LengthLimitingTextInputFormatter(50)
                         ],
-                      )),
+                        keyboardType: TextInputType.emailAddress,
+                        textAlign: TextAlign.center,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          hintText: "Event Title",
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Event Title Required!';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          setState(() => eventName = value);
+                        },
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 15.0),
+                    height: SizeConfig.screenHeight * 0.08,
+                    //color: Colors.yellow,
+                    child: TextFormField(
+                      //initialValue: _initValues['description'],
+                      inputFormatters: [
+                        new LengthLimitingTextInputFormatter(150)
+                      ],
+                      keyboardType: TextInputType.multiline,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        hintText: "Activity Description",
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Description required!';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                       setState(() => eventDescription = value);
+                      },
+                    ),
+                  ),
+
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5.0),
                     child: NewEventLocationText(),
@@ -201,19 +199,16 @@ class _CreateEventCardState extends State<CreateEventCard> {
                 ],
               ),
               Positioned(
-                child: GestureDetector(
-                  onTap: () {
-                    _saveForm();
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.indigo[600]),
-                    child: Center(
-                      child: Icon(Icons.check, color: Colors.white, size: 30),
-                    ),
+
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: IconButton(
+                    iconSize: SizeConfig.screenHeight * 0.09,
+                    icon: Icon(Icons.check_circle),
+                    color: Colors.blue[400],
+                    onPressed: null,
+                    
+
                   ),
                 ),
                 right: 0,

@@ -6,17 +6,19 @@ class Event {
   String title;
   String description;
   final String id;
+  Position position;
   int numPeople;
   int duration;
-  Position position;
+  
 
   Event({
     @required this.title,
     @required this.description,
+    @required this.position,
     @required this.id,
-    this.numPeople,
-    this.duration,
-    this.position
+    @required this.numPeople,
+    @required this.duration,
+   
   });
 
   void setTitle(String t){

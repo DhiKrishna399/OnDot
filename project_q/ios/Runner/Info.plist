@@ -41,6 +41,22 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<!--Firebase auth-->
+	<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<!-- Reverse Client ID in InfoPlist-->
+					<string>com.googleusercontent.apps.762174220749-kvhq6tdh51jkhbsurb4ob1sv35pqu8qg</string>
+				</array>
+			</dict>
+		</array>
+
+
 	<!--Google Maps Access settings-->
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
