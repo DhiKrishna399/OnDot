@@ -18,51 +18,62 @@ class CreateEventCard extends StatefulWidget {
 
 class _CreateEventCardState extends State<CreateEventCard> {
   final _form = GlobalKey<FormState>();
-  var _editedEvent = Event(
-    title: '',
-    description: '',
-    id: null,
-  );
-  var _initValues = {
-    'title': '',
-    'description': '',
-  };
-  var _isInit = true;
+  String eventName = '';
+  String eventDescription = '';
+  //For now using string, but should be coordinate position
+  String eventLocation = '';
+  int eventNumPeople = 2;
+  int eventDuration = 0;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // var _editedEvent = Event(
+  //   title: '',
+  //   description: '',
+  //   id: null,
+  // );
+  // var _initValues = {
+  //   'title': '',
+  //   'description': '',
+  // };
+  // var _isInit = true;
 
-  void didChangeDependencies() {
-    if (_isInit) {
-      final productId = ModalRoute.of(context).settings.arguments as String;
-      if (productId != null) {
-        _editedEvent =
-            Provider.of<Events>(context, listen: false).findById(productId);
-        _initValues = {
-          'title': _editedEvent.title,
-          'description': _editedEvent.description,
-        };
-      }
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
-  void _saveForm() {
-    final isValid = _form.currentState.validate();
-    if (!isValid) {
-      return;
-    }
-    _form.currentState.save();
-    if (_editedEvent.id != null) {
-      Provider.of<Events>(context, listen: false)
-          .updateEvent(_editedEvent.id, _editedEvent);
-    } else {
-      Provider.of<Events>(context, listen: false).addEvent(_editedEvent);
-    }
-    Navigator.of(context).pop();
+  // void didChangeDependencies() {
+  //   if (_isInit) {
+  //     final productId = ModalRoute.of(context).settings.arguments as String;
+  //     if (productId != null) {
+  //       _editedEvent =
+  //           Provider.of<Events>(context, listen: false).findById(productId);
+  //       _initValues = {
+  //         'title': _editedEvent.title,
+  //         'description': _editedEvent.description,
+  //       };
+  //     }
+  //   }
+  //   _isInit = false;
+  //   super.didChangeDependencies();
+  // }
+
+  // void _saveForm() {
+  //   final isValid = _form.currentState.validate();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   _form.currentState.save();
+  //   if (_editedEvent.id != null) {
+  //     Provider.of<Events>(context, listen: false)
+  //         .updateEvent(_editedEvent.id, _editedEvent);
+  //   } else {
+  //     Provider.of<Events>(context, listen: false).addEvent(_editedEvent);
+  //   }
+  //   Navigator.of(context).pop();
+  // }
+
+  void _saveForm(){
+
   }
 
   @override
@@ -82,7 +93,6 @@ class _CreateEventCardState extends State<CreateEventCard> {
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    
                     child: Padding(
                       padding: const EdgeInsets.only(right: 5.0),
                       child: IconButton(
@@ -102,7 +112,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                       //color: Colors.greenAccent,
                       padding: const EdgeInsets.only(bottom: 10),
                       child: TextFormField(
-                        initialValue: _initValues['title'],
+                        //initialValue: _initValues['title'],
                         inputFormatters: [
                           new LengthLimitingTextInputFormatter(50)
                         ],
@@ -118,12 +128,8 @@ class _CreateEventCardState extends State<CreateEventCard> {
                           }
                           return null;
                         },
-                        onSaved: (value) {
-                          _editedEvent = Event(
-                            title: value,
-                            description: _editedEvent.description,
-                            id: _editedEvent.id,
-                          );
+                        onChanged: (value) {
+                          setState(() => eventName = value);
                         },
                       ),
                     ),
@@ -133,7 +139,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                     height: SizeConfig.screenHeight * 0.08,
                     //color: Colors.yellow,
                     child: TextFormField(
-                      initialValue: _initValues['description'],
+                      //initialValue: _initValues['description'],
                       inputFormatters: [
                         new LengthLimitingTextInputFormatter(150)
                       ],
@@ -148,12 +154,8 @@ class _CreateEventCardState extends State<CreateEventCard> {
                         }
                         return null;
                       },
-                      onSaved: (value) {
-                        _editedEvent = Event(
-                          title: _editedEvent.title,
-                          description: value,
-                          id: _editedEvent.id,
-                        );
+                      onChanged: (value) {
+                       setState(() => eventDescription = value);
                       },
                     ),
                   ),
@@ -191,17 +193,20 @@ class _CreateEventCardState extends State<CreateEventCard> {
                       ),
                     ],
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.05,),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.05,
+                  ),
                 ],
               ),
               Positioned(
-                              child: Container(
+                child: Container(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: IconButton(
                     iconSize: SizeConfig.screenHeight * 0.09,
                     icon: Icon(Icons.check_circle),
                     color: Colors.blue[400],
-                    onPressed: _saveForm,
+                    onPressed: null,
+                    
                   ),
                 ),
                 right: 0,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_q/models/event.dart';
 
 //All methods to intereact with our firestore db
 class DatabaseService {
@@ -8,10 +9,11 @@ class DatabaseService {
 
   //Collection Reference
   final CollectionReference users = Firestore.instance.collection('users');
+  final CollectionReference events = Firestore.instance.collection('events');
 
   //Used to create a user and to update their preferences
   /*
-    * Migjt have to initialize a null loation and events array
+    * Might have to initialize a null loation and events array
     * Call updateUserData again after they accept location usage
     * Then query and fill events table with a new method that takes locations
   */
@@ -27,6 +29,19 @@ class DatabaseService {
       });
 
     */
+  }
+
+  // return event list from event snapshot
+  List<Event> _eventListSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+        return Event(
+        title: doc.data['title'] ?? '',
+        description: doc.data['description'] ?? '',
+        position: doc.data['posiiton'] ,
+        numPeople: doc.data['numPeople'] ?? 2,
+        duration: doc.data['duration'] ?? 30,
+        id: doc.data['id'] );
+  });
   }
 
 
