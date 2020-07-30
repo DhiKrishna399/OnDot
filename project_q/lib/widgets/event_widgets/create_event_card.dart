@@ -18,6 +18,7 @@ class CreateEventCard extends StatefulWidget {
 
 class _CreateEventCardState extends State<CreateEventCard> {
   final _form = GlobalKey<FormState>();
+
   String eventName = '';
   String eventDescription = '';
   //For now using string, but should be coordinate position
@@ -83,8 +84,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Card(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          //color: Colors.red[300],
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           child: Stack(
             overflow: Overflow.visible,
             children: [
@@ -107,6 +107,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                     ),
                   ),
                   Form(
+
                     key: _form,
                     child: Container(
                       //color: Colors.greenAccent,
@@ -159,6 +160,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                       },
                     ),
                   ),
+
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5.0),
                     child: NewEventLocationText(),
@@ -173,8 +175,6 @@ class _CreateEventCardState extends State<CreateEventCard> {
                         maxLines: 1,
                         style:
                             TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
-                        // minFontSize: 5,
-                        // stepGranularity: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
@@ -199,6 +199,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                 ],
               ),
               Positioned(
+
                 child: Container(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: IconButton(
@@ -207,11 +208,12 @@ class _CreateEventCardState extends State<CreateEventCard> {
                     color: Colors.blue[400],
                     onPressed: null,
                     
+
                   ),
                 ),
                 right: 0,
                 left: 0,
-                bottom: -34,
+                bottom: -33,
               ),
             ],
           ),
