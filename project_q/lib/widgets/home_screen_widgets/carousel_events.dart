@@ -60,6 +60,7 @@ class _EventCarouselState extends State<EventCarousel> {
                     child: widget,
                   )
                 : Container(
+                    padding: EdgeInsets.only(top: 10),
                     margin: EdgeInsets.only(bottom: 30, left: 10, right: 10),
                     height: Curves.easeInOut.transform(value) * 300.0,
                     width: Curves.easeInOut.transform(value) * 370.0,
@@ -90,17 +91,42 @@ class _EventCarouselState extends State<EventCarousel> {
                 ),
               ],
             ),
-            child: Center(
-              child: Text(
-                eventDummy[index].title,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
+            child: (toggleBigSmallCard == false && index == pageController.page)
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          eventDummy[index].title,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Text(
+                        eventDummy[index].description,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),           
+                    ],
+                  )
+                : Center(
+                    child: Text(
+                      eventDummy[index].title,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
           ),
         ),
       ),
@@ -114,22 +140,37 @@ class _EventCarouselState extends State<EventCarousel> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: AnimatedContainer(
+        //padding: EdgeInsets.only(bottom: 20),
         duration: Duration(milliseconds: 300),
         height: toggleBigSmallCard
             ? SizeConfig.screenHeight * .26
             : SizeConfig.screenHeight * .45,
         width: SizeConfig.screenWidth,
-        child: IgnorePointer(
-          ignoring: false,
-          ignoringSemantics: true,
-          child: PageView.builder(
+        child: Stack(children: [
+          PageView.builder(
             controller: pageController,
             itemCount: eventDummy.length,
             itemBuilder: (BuildContext context, int index) {
               return _eventCardList(index);
             },
           ),
-        ),
+
+          // Align(
+          //   alignment: Alignment.center,
+          //   child: AnimatedContainer(
+          //     duration: Duration(milliseconds: 400),
+          //     height: !toggleBigSmallCard ? SizeConfig.screenWidth * 0.15 : 0,
+          //     width: SizeConfig.screenWidth * 0.15,
+          //     child: Align(
+          //       alignment: Alignment.center,
+          //       child: Container(
+          //         decoration: BoxDecoration(
+          //             color: Colors.amber[700], shape: BoxShape.circle),
+          //       ),
+          //     ),
+          //   ),
+          // )
+        ]),
       ),
     );
   }

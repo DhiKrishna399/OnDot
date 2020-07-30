@@ -28,15 +28,11 @@ class _MapWidgetState extends State<MapWidget> {
           mapType: maps.currentMapType,
           myLocationButtonEnabled: false,
           initialCameraPosition: CameraPosition(
-            //target: maps.center,
             target: LatLng(38.017121, -122.136982),
             zoom: 16,
-            //zoom: 19.0,
           ),
           onMapCreated: maps.mapCreated,
           markers: Set.from(maps.eventMarkers),
-          //onCameraMove: maps.onCameraMove,
-          //markers: maps.markers,
         );
       },
     );

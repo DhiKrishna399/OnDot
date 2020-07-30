@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                   ? Stack(
                       children: [
                         MapWidget(),
-                        //HomeFuncButton(),
+                        HomeFuncButton(),
                         EventCarousel(),
                       ],
                     )
@@ -51,15 +51,4 @@ class _HomePageState extends State<HomePage> {
 
 
 
-
-
-
-
-  // void _createNewEvent(BuildContext ctx) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return CreateEventCard();
-  //       });
-  // }
 }
