@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:project_q/authentication/authenticate.dart';
 import 'package:project_q/providers/events.dart';
 import 'package:project_q/providers/maps_provider.dart';
+import 'package:project_q/screens/wrapper.dart';
+import 'package:project_q/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
+import 'models/user.dart';
 import 'providers/auth.dart';
-import './screens/main_user_info.dart';
+//import './screens/main_user_info.dart';
 import './screens/home_screen.dart';
 import './screens/settings.dart';
+import 'services/database.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,9 +53,9 @@ class ImGame extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        //body: MainUserScreen(),
-        body: HomePage(),
+      child: StreamProvider<User>.value(
+        value: AuthService().user,
+        child: Wrapper(),
       ),
     );
   }

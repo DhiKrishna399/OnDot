@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_q/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:project_q/models/size_config.dart';
 import 'package:project_q/widgets/settings_widgets/header.dart';
@@ -17,12 +18,14 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+
+  final AuthService _auth = AuthService();
+    
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double inkwellFontSize = SizeConfig.screenWidth * 0.07;
     double infoFontSize = SizeConfig.screenWidth * 0.04;
-    
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -130,10 +133,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               color: Colors.red[400],
                             ),
                           ),
-                          onTap: () {
+                          onTap: () async{
+                            await _auth.signOut();
                            //Navigator.of(context).pushReplacementNamed(MainUserScreen.routeName);
-                           Navigator.of(context).popUntil((route) => route.isFirst);
-                           Provider.of<Auth>(context, listen: false).logout();
+                            Navigator.of(context).popUntil((route) => route.isFirst);
+                          //  Provider.of<Auth>(context, listen: false).logout();
                           },
                         ),
                       ),
