@@ -1,19 +1,44 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:project_q/models/event_dummy.dart';
 
 class MapsProvider extends ChangeNotifier {
-
   MapType currentMapType = MapType.normal;
-  Set<Marker> markers = {};
+  Set<Marker> eventMarkers = {};
   Position currentPosition;
   LatLng center;
-  
   bool isLoading = false;
+
+  Completer<GoogleMapController> mapsController = new Completer();
+
+
+
+  void displayEventMarkers() {
+    eventDummy.forEach((element) {
+      eventMarkers.add(
+        Marker(
+          markerId: MarkerId(element.title),
+          draggable: false,
+          infoWindow:
+              InfoWindow(title: element.title, snippet: element.description),
+          position: element.locationCoords,
+        ),
+      );
+    });
+  }
 
   void changeLoadingState() {
     isLoading = true;
+    notifyListeners();
+  }
+
+  void mapCreated(GoogleMapController controller) {
+    mapsController.complete(controller);
+    //mapsController = mapsController;
     notifyListeners();
   }
 
@@ -34,7 +59,23 @@ class MapsProvider extends ChangeNotifier {
     }).catchError((e) {
       print(e);
     });
+
+
   }
 
+  Future<void> goToLocation(int index) async {
+    final GoogleMapController controller = await mapsController.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: eventDummy[index].locationCoords,
+        zoom: 17,
+        tilt: 20,
+      ),
+    ));
+    notifyListeners();
+  }
 
+  void test() {
+    print('hello');
+  }
 }

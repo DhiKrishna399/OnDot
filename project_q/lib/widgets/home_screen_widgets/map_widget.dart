@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:project_q/models/event_dummy.dart';
 import 'package:project_q/models/size_config.dart';
 import 'package:project_q/providers/maps_provider.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,9 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   @override
   void initState() {
-    super.initState();    
+    super.initState();  
+
+    Provider.of<MapsProvider>(context, listen: false).displayEventMarkers();
   }
   
   @override
@@ -25,11 +28,11 @@ class _MapWidgetState extends State<MapWidget> {
           mapType: maps.currentMapType,
           myLocationButtonEnabled: false,
           initialCameraPosition: CameraPosition(
-            target: maps.center,
-            zoom: 19.0,
+            target: LatLng(38.017121, -122.136982),
+            zoom: 16,
           ),
-          onCameraMove: maps.onCameraMove,
-          markers: maps.markers,
+          onMapCreated: maps.mapCreated,
+          markers: Set.from(maps.eventMarkers),
         );
       },
     );
