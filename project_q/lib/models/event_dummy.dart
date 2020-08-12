@@ -4,22 +4,23 @@ import './event.dart';
 
 List<Event> eventDummy = [
   Event(
-    title: 'Painting a mural of dogs',
-    description: 'Come by and paint! Supplies and spunky music provided!!',
-    duration: 27,
-    numPeople: 7,
-    locationCoords: LatLng(38.016536, -122.137974)
-  ),
+      title: 'Painting a mural of dogs',
+      description: 'Come by and paint! Supplies and spunky music provided!!',
+      duration: 27,
+      numPeople: 7,
+      locationCoords: LatLng(38.016536, -122.137974)),
   Event(
     title: 'Knitting with the elderly',
-    description: 'Learn how to knit! Any skillset welcomed! We got classical music and tea!!!!',
+    description:
+        'Learn how to knit! Any skillset welcomed! We got classical music and tea!!!!',
     duration: 60,
     numPeople: 5,
     locationCoords: LatLng(38.015759, -122.136413),
   ),
   Event(
     title: 'Gardening for the Homeless Project',
-    description: "It's a lovely sunday afternoon. Decompress and garden with us! We have all the supplies you need",
+    description:
+        "It's a lovely sunday afternoon. Decompress and garden with us! We have all the supplies you need",
     duration: 45,
     numPeople: 3,
     locationCoords: LatLng(38.017420, -122.135500),
