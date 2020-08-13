@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:project_q/models/event_dummy.dart';
 import 'package:project_q/models/size_config.dart';
 import 'package:project_q/providers/maps_provider.dart';
@@ -52,36 +53,57 @@ class _EventCarouselState extends State<EventCarousel> {
             duration: Duration(milliseconds: 160),
             margin: EdgeInsets.only(bottom: 20),
             height: (index == pageController.page.round() && !isSmallBigCard)
-                ? Curves.easeInOut.transform(value) * 220.0
+                ? Curves.easeInOut.transform(value) * 280.0
                 : Curves.easeInOut.transform(value) * 150.0,
             width: Curves.easeInOut.transform(value) * 360.0,
             child: widget,
           ),
         );
       },
-      child: GestureDetector(
-        onTap: () {
-          Provider.of<MapsProvider>(context, listen: false).goToLocation(index);
-          setState(() {
-            isSmallBigCard = !isSmallBigCard;
-          });
-        },
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
+      child: Stack(
+        overflow: Overflow.visible,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () {
+                Provider.of<MapsProvider>(context, listen: false)
+                    .goToLocation(index);
+                setState(() {
+                  isSmallBigCard = !isSmallBigCard;
+                });
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                height: 230.0,
+                width: 360.0,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 15,
+                        offset: Offset(0, 8),
+                        spreadRadius: 1,
+                        color: Colors.black54,
+                      )
+                    ]),
+                child: Center(
+                  child: Text(
+                    eventDummy[index].title,
+                    style: TextStyle(fontSize: 25),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
             ),
           ),
-          child: Center(
-            child: Text(
-              eventDummy[index].title,
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
+          orangeArrowButton(index),
+        ],
       ),
     );
   }
@@ -90,12 +112,24 @@ class _EventCarouselState extends State<EventCarousel> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 70),
-        height: isSmallBigCard ? 0 : 80,
-        width: isSmallBigCard ? 0 : 80,
+        duration: Duration(milliseconds: 120),
+        height:
+            (index == pageController.page.round() && !isSmallBigCard) ? 80 : 0,
+        width:
+            (index == pageController.page.round() && !isSmallBigCard) ? 80 : 0,
         decoration: BoxDecoration(
           color: Colors.orange,
           shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Icon(
+            Icons.arrow_upward_sharp,
+            color: Colors.white.withOpacity(
+                (index == pageController.page.round() && !isSmallBigCard)
+                    ? 1
+                    : 0),
+            size: 35,
+          ),
         ),
       ),
     );
@@ -111,9 +145,8 @@ class _EventCarouselState extends State<EventCarousel> {
       alignment: Alignment.bottomCenter,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
-        color: Colors.red[100],
         width: SizeConfig.screenWidth,
-        height: isSmallBigCard ? 180 : 250,
+        height: isSmallBigCard ? 180 : 320,
         child: Stack(
           overflow: Overflow.visible,
           children: [
@@ -124,7 +157,6 @@ class _EventCarouselState extends State<EventCarousel> {
                 return _eventCardList(index);
               },
             ),
-            orangeArrowButton(0),
           ],
         ),
       ),
