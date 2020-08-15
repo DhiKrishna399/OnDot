@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:project_q/models/event.dart';
 
 //All methods to intereact with our firestore db
@@ -13,22 +14,22 @@ class DatabaseService {
 
   //Used to create a user and to update their preferences
   /*
-    * Might have to initialize a null loation and events array
+    * Might have to initialize a null location and events array
     * Call updateUserData again after they accept location usage
     * Then query and fill events table with a new method that takes locations
   */
-  Future updateUserData(String name) async {
-    return await users.document(uid).setData({'name': name});
-    /* 
+  Future updateUserData(String name, Event userEvent, List<Event> localEvents, Position position) async {
+    //return await users.document(uid).setData({'name': name});
+     
       return await users.document(uid).setData({
         'name': name, 
-        'myEvent' : myEvent,
+        'myEvent' : userEvent,
         'events': events, 
-        'location' : location,
+        'position' : position,
         
       });
 
-    */
+    
   }
 
   // return event list from event snapshot

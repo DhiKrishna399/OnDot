@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_q/widgets/signup_page..dart';
 import 'package:provider/provider.dart';
-
-import '../widgets/login_page.dart';
 import '../screens/home_screen.dart';
 import '../providers/auth.dart';
 import '../models/http_exception.dart';
@@ -146,19 +143,6 @@ class _MainUserScreenState extends State<MainUserScreen> {
                   ),
                 ),
               ),
-              userIndicator
-                    ? LoginPage(
-                        selectorHandler: changeLogin,
-                        authData: authData,
-                        formKey: formKey,
-                        submitTotal: _submit,
-                      )
-                    : SignUpPage(
-                        selectorHandler: changeLogin,
-                        authData: authData,
-                        formKey: formKey,
-                        submitTotal: _submit,
-                      ),
             ],
           ),
         ),
