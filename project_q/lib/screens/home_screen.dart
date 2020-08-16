@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           MapWidget(),
                           HomeFuncButton(),
-                          //EventCarousel(),
+                          EventCarousel(),
                         ],
                       )
                     : LoadingScreen(),

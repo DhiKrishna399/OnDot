@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,8 @@ class _EventCarouselState extends State<EventCarousel> {
   // true : small => title
   // false : big => description
   bool isSmallBigCard = true;
+  String peopleText = 'more people welcome';
+  String durationText = 'more minutes left';
 
   void initState() {
     super.initState();
@@ -36,6 +39,135 @@ class _EventCarouselState extends State<EventCarousel> {
         isSmallBigCard = !isSmallBigCard;
       });
     }
+  }
+
+  Widget bigCardContext(int index) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: SizeConfig.screenHeight * 0.02,
+        horizontal: SizeConfig.screenWidth * 0.03,
+      ),
+      child: Column(
+        children: [
+          Text(
+            eventDummy[index].title,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.01,
+          ),
+          AutoSizeText(
+            eventDummy[index].description,
+            style: TextStyle(fontSize: 14),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+          ),
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.01,
+          ),
+          Expanded(
+            child: Container(
+              height: 40,
+              width: 220,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.person_add,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                eventDummy[index].numPeople.toString(),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                peopleText,
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.alarm,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                eventDummy[index].duration.toString(),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                durationText,
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Widget _eventCardList(int index) {
@@ -92,13 +224,15 @@ class _EventCarouselState extends State<EventCarousel> {
                         color: Colors.black54,
                       )
                     ]),
-                child: Center(
-                  child: Text(
-                    eventDummy[index].title,
-                    style: TextStyle(fontSize: 25),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                child: (index == pageController.page.round() && !isSmallBigCard)
+                    ? bigCardContext(index)
+                    : Center(
+                        child: Text(
+                          eventDummy[index].title,
+                          style: TextStyle(fontSize: 25),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
               ),
             ),
           ),
