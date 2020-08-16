@@ -26,13 +26,14 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
 
-      List<Event> localEvents = new List<Event>();
-      Event myDummyEvent;
-      Position position;
+      List<Event> localEvents;
+      Position nullPosition;
+      Event myDummyEvent = new Event(title: "TEST", description: "TEST", position: nullPosition, id: user.uid, numPeople: 5, duration: 20);
+    
 
       //Create new user into 'user' document on firebase with uid and name
-      //await DatabaseService(uid: user.uid).updateUserData(name, myDummyEvent, localEvents, position);
-        await DatabaseService(uid: user.uid).updateUserData(name);
+      await DatabaseService(uid: user.uid).updateUserData(name, "event", "localEvents", "Address");
+      //await DatabaseService(uid: user.uid).updateUserData(name);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

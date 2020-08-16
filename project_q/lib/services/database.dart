@@ -18,17 +18,16 @@ class DatabaseService {
     * Call updateUserData again after they accept location usage
     * Then query and fill events table with a new method that takes locations
   */
-  Future updateUserData(String name) async {
-  //Event userEvent, List<Event> localEvents, Position position) async {
-    return await users.document(uid).setData({'name': name});
+  Future updateUserData(String name, String userEvent, String localEvents, String position) async {
+    //return await users.document(uid).setData({'name': name});
      
-      // return await users.document(uid).setData({
-      //   'name': name, 
-      //   'myEvent' : userEvent,
-      //   'events': events, 
-      //   'position' : position,
+      return await users.document(uid).setData({
+        'name': name, 
+        'myEvent' : userEvent,
+        'events': events, 
+        'position' : position,
         
-      // });
+      });
 
     
   }
