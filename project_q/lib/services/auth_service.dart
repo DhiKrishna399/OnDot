@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:project_q/authentication/sign_in.dart';
 import 'package:project_q/models/event.dart';
 import 'package:project_q/models/user.dart';
@@ -22,14 +23,16 @@ class AuthService {
   //Register with Name, Email, and Password
   Future registerNewUser(String name, String email, String password) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
 
-      //Create new user into 'user' document on firebase with uid and name
-      await DatabaseService(uid: user.uid)
-          .updateUserData(name, null, null, null);
+      List<Event> localEvents = new List<Event>();
+      Event myDummyEvent;
+      Position position;
 
+      //Create new user into 'user' document on firebase with uid and name
+      //await DatabaseService(uid: user.uid).updateUserData(name, myDummyEvent, localEvents, position);
+        await DatabaseService(uid: user.uid).updateUserData(name);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
