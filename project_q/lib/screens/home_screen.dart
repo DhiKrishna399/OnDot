@@ -5,7 +5,6 @@ import 'package:project_q/models/size_config.dart';
 import 'package:project_q/providers/maps_provider.dart';
 import 'package:project_q/screens/loading_screen.dart';
 import 'package:project_q/services/database.dart';
-import 'package:project_q/services/event_list.dart';
 import 'package:project_q/widgets/event_widgets/create_event_card.dart';
 import 'package:project_q/widgets/home_screen_widgets/carousel_events.dart';
 import 'package:project_q/widgets/home_screen_widgets/home_func_button.dart';
@@ -41,7 +40,6 @@ class _HomePageState extends State<HomePage> {
                           MapWidget(),
                           HomeFuncButton(),
                           EventCarousel(),
-                          EventList()
                         ],
                       )
                     : LoadingScreen(),
@@ -52,10 +50,4 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
-
-
-
-
-
 }

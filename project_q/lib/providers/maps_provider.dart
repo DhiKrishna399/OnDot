@@ -15,8 +15,6 @@ class MapsProvider extends ChangeNotifier {
 
   Completer<GoogleMapController> mapsController = new Completer();
 
-
-
   void displayEventMarkers() {
     eventDummy.forEach((element) {
       eventMarkers.add(
@@ -38,7 +36,6 @@ class MapsProvider extends ChangeNotifier {
 
   void mapCreated(GoogleMapController controller) {
     mapsController.complete(controller);
-    //mapsController = mapsController;
     notifyListeners();
   }
 
@@ -59,8 +56,6 @@ class MapsProvider extends ChangeNotifier {
     }).catchError((e) {
       print(e);
     });
-
-
   }
 
   Future<void> goToLocation(int index) async {
@@ -73,9 +68,5 @@ class MapsProvider extends ChangeNotifier {
       ),
     ));
     notifyListeners();
-  }
-
-  void test() {
-    print('hello');
   }
 }
