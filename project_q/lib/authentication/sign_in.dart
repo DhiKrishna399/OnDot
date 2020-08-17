@@ -149,12 +149,12 @@ class _SignInState extends State<SignIn> {
                               icon: Icon(Icons.arrow_forward),
                               color: Colors.white,
                               onPressed: () async {
-                                dynamic result = await _auth.signInWithEmail_Password(email, password);
-                                if( _formKey.currentState.validate()){
+                                dynamic result = await _auth
+                                    .signInWithEmail_Password(email, password);
+                                if (_formKey.currentState.validate()) {
                                   setState(() => error = "Account invalid :(");
                                 }
-                                
-                              }, 
+                              },
                             ),
                           ),
                         ],
