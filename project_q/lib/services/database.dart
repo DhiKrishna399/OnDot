@@ -25,16 +25,7 @@ class DatabaseService {
       'userLocation': userLocation,
 
       });
-    /* 
-      return await users.document(uid).setData({
-        'name': name, 
-        'myEvent' : myEvent,
-        'events': events, 
-        'location' : location,
-        
-      });
-
-    */
+  
   }
 
   // return event list from event snapshot
@@ -52,7 +43,7 @@ class DatabaseService {
 
 
   //Get updates user stream (later edit to get events)
-  Stream<QuerySnapshot> get userEvents {
-    return users.snapshots();
+  Stream<QuerySnapshot> get localEvents {
+    return events.snapshots();
   }
 }

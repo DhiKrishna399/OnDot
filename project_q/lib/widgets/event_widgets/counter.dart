@@ -10,6 +10,7 @@ class Counter extends StatefulWidget {
   _CounterState createState() => _CounterState();
 }
 
+
 class _CounterState extends State<Counter> {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,8 @@ class _CounterState extends State<Counter> {
           onPressed: () {
             setState(() {
               if(widget.count >= 0) widget.count++;
-              
+              //setDuration
+              //setPeople
             });
           },
         ),
