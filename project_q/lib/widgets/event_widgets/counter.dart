@@ -3,8 +3,12 @@ import 'package:project_q/models/size_config.dart';
 
 class Counter extends StatefulWidget {
   int count;
-
-  Counter({Key key, @required this.count}) : super(key: key);
+  void Function(int) onChanged;
+  Counter({
+    Key key,
+    @required this.count,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   _CounterState createState() => _CounterState();
@@ -22,10 +26,9 @@ class _CounterState extends State<Counter> {
             Icons.chevron_left,
             size: SizeConfig.screenHeight * 0.05,
           ),
-          onPressed: (){
+          onPressed: () {
             setState(() {
-              if(widget.count >= 1) widget.count--;
-              
+              if (widget.count >= 1) widget.count--;
             });
           },
         ),
@@ -43,16 +46,11 @@ class _CounterState extends State<Counter> {
           ),
           onPressed: () {
             setState(() {
-              if(widget.count >= 0) widget.count++;
-              //setDuration
-              //setPeople
+              if (widget.count >= 0) widget.count++;
             });
           },
         ),
       ],
     );
   }
-
-
 }
-

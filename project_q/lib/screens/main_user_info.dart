@@ -103,14 +103,12 @@ class _MainUserScreenState extends State<MainUserScreen> {
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
     return Scaffold(
-        body: Container(
+      body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
@@ -129,12 +127,13 @@ class _MainUserScreenState extends State<MainUserScreen> {
           ),
         ),
         child: SingleChildScrollView(
-                child: Column(
+          child: Column(
             children: <Widget>[
               Container(
                 width: double.infinity,
                 height: SizeConfig.screenHeight * 0.34,
-                padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.1),
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.screenWidth * 0.1),
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
@@ -147,18 +146,18 @@ class _MainUserScreenState extends State<MainUserScreen> {
                 ),
               ),
               userIndicator
-                    ? LoginPage(
-                        selectorHandler: changeLogin,
-                        authData: authData,
-                        formKey: formKey,
-                        submitTotal: _submit,
-                      )
-                    : SignUpPage(
-                        selectorHandler: changeLogin,
-                        authData: authData,
-                        formKey: formKey,
-                        submitTotal: _submit,
-                      ),
+                  ? LoginPage(
+                      selectorHandler: changeLogin,
+                      authData: authData,
+                      formKey: formKey,
+                      submitTotal: _submit,
+                    )
+                  : SignUpPage(
+                      selectorHandler: changeLogin,
+                      authData: authData,
+                      formKey: formKey,
+                      submitTotal: _submit,
+                    ),
             ],
           ),
         ),

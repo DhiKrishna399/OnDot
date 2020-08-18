@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_q/models/event.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 //All methods to intereact with our firestore db
 class DatabaseService {
   //uid is unique ID for the database document we are referencing
   final String uid;
-  DatabaseService({this.uid});
+  final String eventId;
+  DatabaseService({this.uid, this.eventId});
 
   //Collection Reference
   final CollectionReference users = Firestore.instance.collection('users');
@@ -28,19 +31,35 @@ class DatabaseService {
   
   }
 
-  // return event list from event snapshot
-  List<Event> _eventListSnapshot(QuerySnapshot snapshot){
-    return snapshot.documents.map((doc){
-        return Event(
-        title: doc.data['title'] ?? '',
-        description: doc.data['description'] ?? '',
-        position: doc.data['posiiton'] ,
-        numPeople: doc.data['numPeople'] ?? 2,
-        duration: doc.data['duration'] ?? 30,
-        id: doc.data['id'] );
-  });
+  Future createEvent(
+    String title,
+    String description,
+    int numPeople,
+    int duration,
+    String position,
+  ) async {
+    print('uploading data');
+    return await events.document().setData({
+      'title': title,
+      'description': description,
+      'duration': duration,
+      'numPeople': numPeople,
+      'position': position,
+    });
   }
 
+  // return event list from event snapshot
+  List<Event> _eventListSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Event(
+          title: doc.data['title'] ?? '',
+          description: doc.data['description'] ?? '',
+          position: doc.data['posiiton'],
+          numPeople: doc.data['numPeople'] ?? 2,
+          duration: doc.data['duration'] ?? 30,
+          id: doc.data['id']);
+    });
+  }
 
   //Get updates user stream (later edit to get events)
   Stream<QuerySnapshot> get localEvents {

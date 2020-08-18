@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import '../../services/database.dart';
 
 import '../../models/event.dart';
-import '../../providers/events.dart';
 import '../../models/size_config.dart';
 import 'counter.dart';
 import 'event_location_text.dart';
@@ -21,63 +20,17 @@ class _CreateEventCardState extends State<CreateEventCard> {
   String eventName = '';
   String eventDescription = '';
   //For now using string, but should be coordinate position
+  //Position eventPosition = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   String eventLocation = '';
-  int eventNumPeople = 2;
+  int eventNumPeople = 0;
   int eventDuration = 0;
 
-  // var _editedEvent = Event(
-  //   title: '',
-  //   description: '',
-  //   id: null,
-  // );
-  // var _initValues = {
-  //   'title': '',
-  //   'description': '',
-  // };
-  // var _isInit = true;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
-  // void didChangeDependencies() {
-  //   if (_isInit) {
-  //     final productId = ModalRoute.of(context).settings.arguments as String;
-  //     if (productId != null) {
-  //       _editedEvent =
-  //           Provider.of<Events>(context, listen: false).findById(productId);
-  //       _initValues = {
-  //         'title': _editedEvent.title,
-  //         'description': _editedEvent.description,
-  //       };
-  //     }
-  //   }
-  //   _isInit = false;
-  //   super.didChangeDependencies();
-  // }
-
-  // void _saveForm() {
-  //   final isValid = _form.currentState.validate();
-  //   if (!isValid) {
-  //     return;
-  //   }
-  //   _form.currentState.save();
-  //   if (_editedEvent.id != null) {
-  //     Provider.of<Events>(context, listen: false)
-  //         .updateEvent(_editedEvent.id, _editedEvent);
-  //   } else {
-  //     Provider.of<Events>(context, listen: false).addEvent(_editedEvent);
-  //   }
-  //   Navigator.of(context).pop();
-  // }
-
-  void _saveForm(){
-
-  }
+  //void _saveForm() {}
 
   @override
   Widget build(BuildContext context) {
+    Event event;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -108,93 +61,99 @@ class _CreateEventCardState extends State<CreateEventCard> {
                   ),
                   Form(
                     key: _form,
-                    child: Container(
-                      //color: Colors.greenAccent,
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: TextFormField(
-                        //initialValue: _initValues['title'],
-                        inputFormatters: [
-                          new LengthLimitingTextInputFormatter(50)
-                        ],
-                        keyboardType: TextInputType.emailAddress,
-                        textAlign: TextAlign.center,
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          hintText: "Event Title",
+                    child: Column(children: <Widget>[
+                      Container(
+                        //color: Colors.greenAccent,
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: TextFormField(
+                          //initialValue: _initValues['title'],
+                          inputFormatters: [
+                            new LengthLimitingTextInputFormatter(50)
+                          ],
+                          keyboardType: TextInputType.emailAddress,
+                          textAlign: TextAlign.center,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            hintText: "Event Title",
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Event Title Required!';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            setState(() => eventName = value);
+                          },
                         ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Event Title Required!';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          setState(() => eventName = value);
-                        },
                       ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 15.0),
-                    height: SizeConfig.screenHeight * 0.08,
-                    //color: Colors.yellow,
-                    child: TextFormField(
-                      //initialValue: _initValues['description'],
-                      inputFormatters: [
-                        new LengthLimitingTextInputFormatter(150)
-                      ],
-                      keyboardType: TextInputType.multiline,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: "Activity Description",
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        height: SizeConfig.screenHeight * 0.08,
+                        //color: Colors.yellow,
+                        child: TextFormField(
+                          //initialValue: _initValues['description'],
+                          inputFormatters: [
+                            new LengthLimitingTextInputFormatter(150)
+                          ],
+                          keyboardType: TextInputType.multiline,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            hintText: "Activity Description",
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Description required!';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            setState(() => eventDescription = value);
+                          },
+                        ),
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Description required!';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                       setState(() => eventDescription = value);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: NewEventLocationText(),
-                  ),
-                  Row(
-                    children: [
-                      Counter(
-                        count: 0,
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5.0),
+                        child: NewEventLocationText(),
                       ),
-                      Text(
-                        'Activity Duration (min)',
-                        maxLines: 1,
-                        style:
-                            TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
-                        // minFontSize: 5,
-                        // stepGranularity: 3,
-                        overflow: TextOverflow.ellipsis,
+                      Row(
+                        children: [
+                          Counter(
+                            count: 0,
+                            onChanged: (count) =>
+                                setState(() => eventDuration = count),
+                          ),
+                          Text(
+                            'Activity Duration (min)',
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontSize: SizeConfig.screenWidth * 0.04),
+                            // minFontSize: 5,
+                            // stepGranularity: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Counter(
-                        count: 2,
+                      Row(
+                        children: [
+                          Counter(
+                            count: 0,
+                            onChanged: (count) =>
+                                setState(() => eventNumPeople = count),
+                          ),
+                          Text(
+                            'Number of people',
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontSize: SizeConfig.screenWidth * 0.04),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Number of people',
-                        maxLines: 1,
-                        style:
-                            TextStyle(fontSize: SizeConfig.screenWidth * 0.04),
-                        overflow: TextOverflow.ellipsis,
+                      SizedBox(
+                        height: SizeConfig.screenHeight * 0.05,
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: SizeConfig.screenHeight * 0.05,
+                    ]),
                   ),
                 ],
               ),
@@ -205,8 +164,19 @@ class _CreateEventCardState extends State<CreateEventCard> {
                     iconSize: SizeConfig.screenHeight * 0.09,
                     icon: Icon(Icons.check_circle),
                     color: Colors.blue[400],
-                    onPressed: null,
-                    
+                    onPressed: () async {
+                      if (_form.currentState.validate()) {
+                        print('proceed to upload');
+                        await DatabaseService().createEvent(
+                          eventName,
+                          eventDescription,
+                          eventNumPeople,
+                          eventDuration,
+                          eventLocation,
+                        );
+                        Navigator.of(context).pop();
+                      }
+                    },
                   ),
                 ),
                 right: 0,
