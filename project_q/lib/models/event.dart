@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class Event {
   String title;
   String description;
+  String creatorID;
   final String id;
   Position position;
   int numPeople;
@@ -17,6 +18,7 @@ class Event {
     @required this.id,
     this.position,
     this.numPeople,
+    this.creatorID,
     this.duration,
     this.locationCoords,
   });

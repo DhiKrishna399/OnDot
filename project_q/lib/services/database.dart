@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_q/models/event.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:project_q/models/user.dart';
 
 //All methods to intereact with our firestore db
 class DatabaseService {
@@ -20,15 +19,14 @@ class DatabaseService {
     * Call updateUserData again after they accept location usage
     * Then query and fill events table with a new method that takes locations
   */
-  Future updateUserData(String name, Event userEvent, List<Event> localEvents, String userLocation) async {
+  Future updateUserData(String name, String hostEvent, String joinEvents,
+      String userLocation) async {
     return await users.document(uid).setData({
       'name': name,
-      'userEvent': userEvent,
-      'localEvents': localEvents,
+      'hostEvent': hostEvent,
+      'joinEvents': joinEvents,
       'userLocation': userLocation,
-
-      });
-  
+    });
   }
 
   Future createEvent(
@@ -37,14 +35,16 @@ class DatabaseService {
     int numPeople,
     int duration,
     String position,
+    String creatorID,
   ) async {
     print('uploading data');
-    return await events.document().setData({
+    return await events.add({
       'title': title,
       'description': description,
       'duration': duration,
       'numPeople': numPeople,
       'position': position,
+      'createorID': creatorID,
     });
   }
 
@@ -64,5 +64,19 @@ class DatabaseService {
   //Get updates user stream (later edit to get events)
   Stream<QuerySnapshot> get localEvents {
     return events.snapshots();
+  }
+
+  UserData _userData(DocumentSnapshot snapshot) {
+    return UserData(
+      uid: uid,
+      name: snapshot.data['name'],
+      userLocation: snapshot.data['userLocation'],
+      joinEvent: snapshot.data['joinEvent'],
+      hostEvent: snapshot.data['hostEvent'],
+    );
+  }
+
+  Stream<UserData> get userData {
+    return users.document(uid).snapshots().map(_userData);
   }
 }
