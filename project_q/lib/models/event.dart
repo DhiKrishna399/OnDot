@@ -9,7 +9,7 @@ class Event {
   Position position;
   int numPeople;
   int duration;
-  LatLng locationCoords;
+  LatLng locationCoords; 
 
   Event({
     @required this.title,
@@ -18,8 +18,9 @@ class Event {
     this.position,
     this.numPeople,
     this.duration,
-    this.locationCoords,
-  });
+  }){
+    locationCoords = LatLng(this.position.latitude, this.position.longitude);
+  }
 
   void setTitle(String t) {
     title = t;

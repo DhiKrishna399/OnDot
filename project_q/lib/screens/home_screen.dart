@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_q/data/db_event_list.dart';
-
+import 'package:project_q/models/event.dart';
 import 'package:project_q/models/size_config.dart';
 import 'package:project_q/providers/maps_provider.dart';
 import 'package:project_q/screens/loading_screen.dart';
@@ -27,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     SizeConfig().init(context);
     return Consumer<MapsProvider>(
       builder: (context, maps, _) {
-        return StreamProvider<QuerySnapshot>.value(
+        return StreamProvider<List<Event>>.value(
           value: DatabaseService().localEvents,
           child: Scaffold(
             body: WillPopScope(

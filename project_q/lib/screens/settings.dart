@@ -5,7 +5,6 @@ import 'package:project_q/models/size_config.dart';
 import 'package:project_q/widgets/settings_widgets/header.dart';
 
 import '../providers/auth.dart';
-import '../screens/main_user_info.dart';
 import '../main.dart';
 
 class SettingsPage extends StatefulWidget {

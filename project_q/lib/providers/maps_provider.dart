@@ -23,7 +23,7 @@ class MapsProvider extends ChangeNotifier {
           draggable: false,
           infoWindow:
               InfoWindow(title: element.title, snippet: element.description),
-          position: element.locationCoords,
+          //position: element.locationCoords,
         ),
       );
     });
@@ -62,6 +62,7 @@ class MapsProvider extends ChangeNotifier {
     final GoogleMapController controller = await mapsController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
+        //Edit to be position based
         target: eventDummy[index].locationCoords,
         zoom: 17,
         tilt: 20,

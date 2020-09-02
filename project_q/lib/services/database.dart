@@ -20,6 +20,8 @@ class DatabaseService {
     * Call updateUserData again after they accept location usage
     * Then query and fill events table with a new method that takes locations
   */
+
+  //UPDATE THIS INTO MYLES BRANCH
   Future updateUserData(String name, Event userEvent, List<Event> localEvents, String userLocation) async {
     return await users.document(uid).setData({
       'name': name,
@@ -49,20 +51,21 @@ class DatabaseService {
   }
 
   // return event list from event snapshot
-  List<Event> _eventListSnapshot(QuerySnapshot snapshot) {
+  List<Event> _eventListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Event(
           title: doc.data['title'] ?? '',
           description: doc.data['description'] ?? '',
-          position: doc.data['posiiton'],
+          position: doc.data['posiiton'] ?? null,
           numPeople: doc.data['numPeople'] ?? 2,
           duration: doc.data['duration'] ?? 30,
-          id: doc.data['id']);
+          id: doc.data['id'] ?? null);
     });
   }
 
-  //Get updates user stream (later edit to get events)
-  Stream<QuerySnapshot> get localEvents {
-    return events.snapshots();
+  //Get updates events stream 
+  Stream<List<Event>> get localEvents {
+    return events.snapshots()
+      .map(_eventListFromSnapshot);
   }
 }

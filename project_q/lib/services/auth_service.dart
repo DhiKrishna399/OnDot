@@ -12,21 +12,9 @@ class AuthService {
 
 //Stream to detect auth change for user
   Stream<User> get user {
-    //stream returns fb users whenever there is an auth change
+    //stream returns firebase users whenever there is an auth change
     return _auth.onAuthStateChanged
-        // .map((FirebaseUser user) => _userFromFirebaseUser(user));
         .map(_userFromFirebaseUser);
-  }
-
-  Future signInAnon() async {
-    try {
-      AuthResult result = await _auth.signInAnonymously();
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
   }
 
   //Register with Name, Email, and Password
@@ -47,7 +35,7 @@ class AuthService {
     }
   }
 
-    //Register with Name, Email, and Password
+  //Register with Name, Email, and Password
   Future signInWithEmail_Password(String email, String password) async {
     try{
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
