@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:project_q/models/event.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:project_q/models/user.dart';
 
 //All methods to intereact with our firestore db
 class DatabaseService {
@@ -20,18 +20,13 @@ class DatabaseService {
     * Call updateUserData again after they accept location usage
     * Then query and fill events table with a new method that takes locations
   */
-  Future updateUserData(String name) async {
-    return await users.document(uid).setData({'name': name});
-    /* 
-      return await users.document(uid).setData({
-        'name': name, 
-        'myEvent' : myEvent,
-        'events': events, 
-        'location' : location,
-        
-      });
-
-    */
+  Future updateUserData(String name, String hostEvent, String joinEvents,
+      String userLocation) async {
+    return await users.document(uid).setData({
+      'name': name,
+      'hostEvent': hostEvent,
+      'joinEvents': joinEvents,
+    });
   }
 
   Future createEvent(
@@ -39,15 +34,19 @@ class DatabaseService {
     String description,
     int numPeople,
     int duration,
-    String position,
+    GeoFirePoint position,
+    String creatorID,
+    List<String> participants,
   ) async {
     print('uploading data');
-    return await events.document().setData({
+    return await events.add({
       'title': title,
       'description': description,
       'duration': duration,
       'numPeople': numPeople,
-      'position': position,
+      'position': position.data,
+      'creatorID': creatorID,
+      'participants': participants,
     });
   }
 
@@ -57,15 +56,34 @@ class DatabaseService {
       return Event(
           title: doc.data['title'] ?? '',
           description: doc.data['description'] ?? '',
-          position: doc.data['posiiton'],
+          position: doc.data['posiiton'] ?? null,
           numPeople: doc.data['numPeople'] ?? 2,
           duration: doc.data['duration'] ?? 30,
+          creatorID: doc.data['creatorID'] ?? null,
           id: doc.data['id']);
     });
   }
 
   //Get updates user stream (later edit to get events)
-  Stream<QuerySnapshot> get userEvents {
-    return users.snapshots();
+  Stream<QuerySnapshot> get localEvents {
+    return events.snapshots();
+  }
+
+  UserData _userData(DocumentSnapshot snapshot) {
+    return UserData(
+      uid: uid,
+      name: snapshot.data['name'],
+      userLocation: snapshot.data['userLocation'],
+      joinEvent: snapshot.data['joinEvent'],
+      hostEvent: snapshot.data['hostEvent'],
+    );
+  }
+
+  Stream<List<Event>> get eventlist {
+    return events.snapshots().map(_eventListSnapshot);
+  }
+
+  Stream<UserData> get userData {
+    return users.document(uid).snapshots().map(_userData);
   }
 }

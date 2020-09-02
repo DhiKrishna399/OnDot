@@ -6,9 +6,8 @@ import 'package:project_q/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'models/user.dart';
 import 'providers/auth.dart';
+import 'services/auth_service.dart';
 import './screens/home_screen.dart';
-import './screens/settings.dart';
-import 'services/database.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,6 +22,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Auth(),
         ),
+        StreamProvider<User>.value(
+          value: AuthService().user,
+        ),
         ChangeNotifierProvider(
           create: (context) => MapsProvider(),
         )
@@ -33,11 +35,7 @@ class MyApp extends StatelessWidget {
         builder: (ctx, auth, _) => MaterialApp(
           title: 'IMGAME',
           debugShowCheckedModeBanner: false,
-          home: auth.isAuth ? HomePage() : ImGame(),
-          // routes: {
-          //   //HomePage.routeName: (ctx) => HomePage(),
-          //   //MainUserScreen.routeName: (ctx) => MainUserScreen(),
-          // },
+          home: ImGame(),
         ),
       ),
     );
@@ -47,11 +45,14 @@ class MyApp extends StatelessWidget {
 class ImGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: StreamProvider<User>.value(
-        value: AuthService().user,
-        child: Wrapper(),
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: StreamProvider<User>.value(
+          value: AuthService().user,
+          child: Wrapper(),
+        ),
       ),
     );
   }
