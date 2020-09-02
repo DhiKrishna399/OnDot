@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../services/database.dart';
 import '../../models/event.dart';
 import '../../models/user.dart';
@@ -18,6 +20,7 @@ class CreateEventCard extends StatefulWidget {
 
 class _CreateEventCardState extends State<CreateEventCard> {
   final _form = GlobalKey<FormState>();
+
   String eventName = '';
   String eventDescription = '';
   //For now using string, but should be coordinate position
@@ -174,13 +177,20 @@ class _CreateEventCardState extends State<CreateEventCard> {
                           onPressed: () async {
                             if (_form.currentState.validate()) {
                               print('proceed to upload');
+                              Position currentPo = await getCurrentPosition(
+                                  desiredAccuracy: LocationAccuracy.high);
+                              GeoFirePoint currentCord = Geoflutterfire().point(
+                                  latitude: currentPo.latitude,
+                                  longitude: currentPo.longitude);
+                              print('position fetched');
+                              print(currentCord.data.toString());
                               DocumentReference result =
                                   await DatabaseService().createEvent(
                                 eventName,
                                 eventDescription,
                                 eventNumPeople,
                                 eventDuration,
-                                eventLocation,
+                                currentCord,
                                 user.uid,
                                 null,
                               );

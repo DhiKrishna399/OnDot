@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:project_q/models/event_dummy.dart';
@@ -43,11 +43,8 @@ class MapsProvider extends ChangeNotifier {
     center = position.target;
   }
 
-  void getLocation() {
-    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-
-    geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+  void getLocation() async {
+    await getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
       currentPosition = position;
       center = LatLng(currentPosition.latitude, currentPosition.longitude);

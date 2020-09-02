@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:project_q/models/event.dart';
 import 'package:project_q/models/user.dart';
 
@@ -25,7 +27,7 @@ class DatabaseService {
       'name': name,
       'hostEvent': hostEvent,
       'joinEvents': joinEvents,
-      'userLocation': userLocation,
+      //'userLocation': userLocation,
     });
   }
 
@@ -34,7 +36,7 @@ class DatabaseService {
     String description,
     int numPeople,
     int duration,
-    String position,
+    GeoFirePoint position,
     String creatorID,
     List<String> participants,
   ) async {
@@ -44,7 +46,7 @@ class DatabaseService {
       'description': description,
       'duration': duration,
       'numPeople': numPeople,
-      'position': position,
+      'position': position.data,
       'createorID': creatorID,
       'participants': participants,
     });
