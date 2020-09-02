@@ -182,6 +182,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                                 eventDuration,
                                 eventLocation,
                                 user.uid,
+                                null,
                               );
                               await DatabaseService(uid: user.uid)
                                   .updateUserData(

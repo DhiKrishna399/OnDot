@@ -36,6 +36,7 @@ class DatabaseService {
     int duration,
     String position,
     String creatorID,
+    List<String> participants,
   ) async {
     print('uploading data');
     return await events.add({
@@ -45,6 +46,7 @@ class DatabaseService {
       'numPeople': numPeople,
       'position': position,
       'createorID': creatorID,
+      'participants': participants,
     });
   }
 

@@ -20,7 +20,6 @@ class Event {
     this.numPeople,
     this.creatorID,
     this.duration,
-    this.locationCoords,
   });
 
   void setTitle(String t) {
@@ -42,4 +41,26 @@ class Event {
   void setPosition(Position p) {
     position = p;
   }
+}
+
+class EventData {
+  final String eventID;
+  final String title;
+  final String position;
+  final String description;
+  final String creatorID;
+  final int numPeople;
+  List<String> participants;
+  int duration;
+
+  EventData({
+    this.eventID,
+    this.title,
+    this.description,
+    this.position,
+    this.numPeople,
+    this.duration,
+    this.creatorID,
+    this.participants,
+  });
 }
