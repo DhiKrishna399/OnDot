@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:project_q/models/event.dart';
 import 'package:project_q/models/user.dart';
@@ -27,7 +26,6 @@ class DatabaseService {
       'name': name,
       'hostEvent': hostEvent,
       'joinEvents': joinEvents,
-      //'userLocation': userLocation,
     });
   }
 
@@ -47,7 +45,7 @@ class DatabaseService {
       'duration': duration,
       'numPeople': numPeople,
       'position': position.data,
-      'createorID': creatorID,
+      'creatorID': creatorID,
       'participants': participants,
     });
   }
@@ -58,9 +56,10 @@ class DatabaseService {
       return Event(
           title: doc.data['title'] ?? '',
           description: doc.data['description'] ?? '',
-          position: doc.data['posiiton'],
+          position: doc.data['posiiton'] ?? null,
           numPeople: doc.data['numPeople'] ?? 2,
           duration: doc.data['duration'] ?? 30,
+          creatorID: doc.data['creatorID'] ?? null,
           id: doc.data['id']);
     });
   }
@@ -78,6 +77,10 @@ class DatabaseService {
       joinEvent: snapshot.data['joinEvent'],
       hostEvent: snapshot.data['hostEvent'],
     );
+  }
+
+  Stream<List<Event>> get eventlist {
+    return events.snapshots().map(_eventListSnapshot);
   }
 
   Stream<UserData> get userData {

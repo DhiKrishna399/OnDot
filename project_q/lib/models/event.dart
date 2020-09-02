@@ -1,5 +1,5 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Event {
@@ -7,7 +7,7 @@ class Event {
   String description;
   String creatorID;
   final String id;
-  Position position;
+  GeoFirePoint position;
   int numPeople;
   int duration;
   LatLng locationCoords;
@@ -21,32 +21,12 @@ class Event {
     this.creatorID,
     this.duration,
   });
-
-  void setTitle(String t) {
-    title = t;
-  }
-
-  void setDescription(String d) {
-    description = d;
-  }
-
-  void setNumPeople(int n) {
-    numPeople = n;
-  }
-
-  void setDuration(int s) {
-    duration = s;
-  }
-
-  void setPosition(Position p) {
-    position = p;
-  }
 }
 
 class EventData {
   final String eventID;
   final String title;
-  final String position;
+  final GeoFirePoint position;
   final String description;
   final String creatorID;
   final int numPeople;
