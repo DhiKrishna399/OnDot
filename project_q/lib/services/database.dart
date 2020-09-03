@@ -61,13 +61,13 @@ class DatabaseService {
           duration: doc.data['duration'] ?? 30,
           creatorID: doc.data['creatorID'] ?? null,
           id: doc.data['id']);
-    });
+    }).toList();
   }
 
   //Get updates user stream (later edit to get events)
-  Stream<QuerySnapshot> get localEvents {
-    return events.snapshots();
-  }
+  //Stream<QuerySnapshot> get localEvents {
+  //return events.snapshots();
+  //}
 
   UserData _userData(DocumentSnapshot snapshot) {
     return UserData(

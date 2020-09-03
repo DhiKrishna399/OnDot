@@ -22,7 +22,7 @@ class Event {
     this.duration,
   });
 }
-
+/*
 class EventData {
   final String eventID;
   final String title;
@@ -44,3 +44,4 @@ class EventData {
     this.participants,
   });
 }
+*/
