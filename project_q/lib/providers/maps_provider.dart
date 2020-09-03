@@ -14,7 +14,7 @@ class MapsProvider extends ChangeNotifier {
   bool isLoading = false;
 
   Completer<GoogleMapController> mapsController = new Completer();
-
+  
   void displayEventMarkers() {
     eventDummy.forEach((element) {
       eventMarkers.add(

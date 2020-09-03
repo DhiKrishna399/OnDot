@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_q/authentication/authenticate.dart';
+import 'package:project_q/models/event.dart';
 import 'package:project_q/models/user.dart';
 import 'package:project_q/screens/home_screen.dart';
 import 'package:project_q/screens/main_user_info.dart';

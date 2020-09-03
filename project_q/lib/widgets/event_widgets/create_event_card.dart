@@ -199,7 +199,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                                 userData.name,
                                 result.documentID,
                                 userData.joinEvent,
-                                userData.userLocation,
+
                               );
                               Navigator.of(context).pop();
                             }

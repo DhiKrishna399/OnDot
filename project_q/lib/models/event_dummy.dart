@@ -1,6 +1,4 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import './event.dart';
 
 List<Event> eventDummy = [

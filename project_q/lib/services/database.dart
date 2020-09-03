@@ -20,8 +20,8 @@ class DatabaseService {
     * Call updateUserData again after they accept location usage
     * Then query and fill events table with a new method that takes locations
   */
-  Future updateUserData(String name, String hostEvent, String joinEvents,
-      String userLocation) async {
+  Future updateUserData(
+      String name, String hostEvent, String joinEvents) async {
     return await users.document(uid).setData({
       'name': name,
       'hostEvent': hostEvent,
@@ -50,24 +50,29 @@ class DatabaseService {
     });
   }
 
+  //Snapshot to return list of events from Firestore
+  Stream<List<Event>> get eventlist {
+    return events.snapshots().map(_eventListSnapshot);
+  }
+
   // return event list from event snapshot
   List<Event> _eventListSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Event(
           title: doc.data['title'] ?? '',
           description: doc.data['description'] ?? '',
-          position: doc.data['posiiton'] ?? null,
+          position: doc.data['position'] ?? null,
           numPeople: doc.data['numPeople'] ?? 2,
           duration: doc.data['duration'] ?? 30,
           creatorID: doc.data['creatorID'] ?? null,
           id: doc.data['id']);
-    });
+    }).toList();
   }
 
   //Get updates user stream (later edit to get events)
-  Stream<QuerySnapshot> get localEvents {
-    return events.snapshots();
-  }
+  // Stream<QuerySnapshot> get localEvents {
+  //   return events.snapshots();
+  // }
 
   UserData _userData(DocumentSnapshot snapshot) {
     return UserData(
@@ -77,10 +82,6 @@ class DatabaseService {
       joinEvent: snapshot.data['joinEvent'],
       hostEvent: snapshot.data['hostEvent'],
     );
-  }
-
-  Stream<List<Event>> get eventlist {
-    return events.snapshots().map(_eventListSnapshot);
   }
 
   Stream<UserData> get userData {

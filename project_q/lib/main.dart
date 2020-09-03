@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_q/data/db_event_list.dart';
 import 'package:project_q/providers/events.dart';
 import 'package:project_q/providers/maps_provider.dart';
 import 'package:project_q/screens/wrapper.dart';
@@ -27,7 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => MapsProvider(),
-        )
+        ),
+        
+      
       ],
       //Check if user is logged in, boots up the app with root/routes setup
       //Make sure to set up routes and reference main_user_info.dart

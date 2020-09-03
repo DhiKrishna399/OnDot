@@ -26,7 +26,7 @@ class AuthService {
 
       //Create new user into 'user' document on firebase with uid and name
       await DatabaseService(uid: user.uid)
-          .updateUserData(name, null, null, "Address");
+          .updateUserData(name, null, null);
 
       return _userFromFirebaseUser(user);
     } catch (e) {
