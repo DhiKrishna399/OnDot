@@ -17,6 +17,10 @@ class _dbEventList extends State<dbEventList> {
       print(event.id);
       print(event.title);
       print(event.description);
+      print(event.position);
+      print(event.numPeople);
+      print(event.duration);
+      print("------------------------");
     });
     /*for (var doc in localEvents.documents) {
       print(doc.data);

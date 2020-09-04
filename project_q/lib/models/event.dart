@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,7 +8,7 @@ class Event {
   String description;
   String creatorID;
   final String id;
-  GeoFirePoint position;
+  GeoPoint position;
   int numPeople;
   int duration;
   LatLng locationCoords;

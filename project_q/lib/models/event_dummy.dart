@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,25 +10,25 @@ List<Event> eventDummy = [
       description: 'Come by and paint! Supplies and spunky music provided!!',
       duration: 27,
       numPeople: 7,
-      position: GeoFirePoint(38.016536, -122.137974)),
+      position: GeoPoint(38.016536, -122.137974)),
   Event(
       title: 'Knitting with the elderly',
       description:
           'Learn how to knit! Any skillset welcomed! We got classical music and tea!!!!',
       duration: 60,
       numPeople: 5,
-      position: GeoFirePoint(38.015759, -122.136413)),
+      position: GeoPoint(38.015759, -122.136413)),
   Event(
       title: 'Gardening for the Homeless Project',
       description:
           "It's a lovely sunday afternoon. Decompress and garden with us! We have all the supplies you need",
       duration: 45,
       numPeople: 3,
-      position: GeoFirePoint(38.017420, -122.135500)),
+      position: GeoPoint(38.017420, -122.135500)),
   Event(
       title: 'Mountain Bike Group Meet up',
       description: "@ a cofee shop. Plan to bike Santa Cruz mountains.",
       duration: 10,
       numPeople: 9,
-      position: GeoFirePoint(38.018447, -122.137282)),
+      position: GeoPoint(38.018447, -122.137282)),
 ];

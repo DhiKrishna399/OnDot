@@ -179,18 +179,17 @@ class _CreateEventCardState extends State<CreateEventCard> {
                               print('proceed to upload');
                               Position currentPo = await getCurrentPosition(
                                   desiredAccuracy: LocationAccuracy.high);
-                              GeoFirePoint currentCord = Geoflutterfire().point(
-                                  latitude: currentPo.latitude,
-                                  longitude: currentPo.longitude);
+                              GeoPoint(currentPo.latitude,currentPo.longitude);
                               print('position fetched');
-                              print(currentCord.data.toString());
+                              //print(currentCord.data.toString());
                               DocumentReference result =
                                   await DatabaseService().createEvent(
                                 eventName,
                                 eventDescription,
                                 eventNumPeople,
                                 eventDuration,
-                                currentCord,
+                                //currentCord,
+                                GeoPoint(currentPo.latitude,currentPo.longitude),
                                 user.uid,
                                 null,
                               );
@@ -201,6 +200,7 @@ class _CreateEventCardState extends State<CreateEventCard> {
                                 userData.joinEvent,
                                 userData.userLocation,
                               );
+
                               Navigator.of(context).pop();
                             }
                           },

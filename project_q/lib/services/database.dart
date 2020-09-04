@@ -34,7 +34,7 @@ class DatabaseService {
     String description,
     int numPeople,
     int duration,
-    GeoFirePoint position,
+    GeoPoint position,
     String creatorID,
     List<String> participants,
   ) async {
@@ -44,7 +44,7 @@ class DatabaseService {
       'description': description,
       'duration': duration,
       'numPeople': numPeople,
-      'position': position.data,
+      'position': position,
       'creatorID': creatorID,
       'participants': participants,
     });
@@ -56,13 +56,18 @@ class DatabaseService {
       return Event(
           title: doc.data['title'] ?? '',
           description: doc.data['description'] ?? '',
-          position: doc.data['posiiton'] ?? null,
+          position: doc.data['position'][0]['Latitude'] ?? null,
           numPeople: doc.data['numPeople'] ?? 2,
           duration: doc.data['duration'] ?? 30,
           creatorID: doc.data['creatorID'] ?? null,
           id: doc.data['id']);
     }).toList();
   }
+
+  void readData() {
+
+  }
+  
 
   //Get updates user stream (later edit to get events)
   //Stream<QuerySnapshot> get localEvents {
