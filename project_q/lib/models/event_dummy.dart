@@ -1,6 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import './event.dart';
 
+
 List<Event> eventDummy = [
   Event(
       title: 'Painting a mural of dogs',
@@ -25,7 +26,7 @@ List<Event> eventDummy = [
     duration: 45,
     numPeople: 3,
     longitude: 38.017420,
-    latitude: -122.135500,
+    latitude: -122.136405,
   ),
   Event(
     title: 'Mountain Bike Group Meet up',

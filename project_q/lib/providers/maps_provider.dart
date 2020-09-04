@@ -59,7 +59,7 @@ class MapsProvider extends ChangeNotifier {
     final GoogleMapController controller = await mapsController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
-        target: center,
+        target: LatLng(eventDummy[index].latitude, eventDummy[index].longitude),
         zoom: 17,
         tilt: 20,
       ),
