@@ -17,7 +17,8 @@ class _dbEventList extends State<dbEventList> {
       print(event.id);
       print(event.title);
       print(event.description);
-      print(event.position);
+      print("Latitude: " + event.latitude.toString());
+      print("Longitude: " + event.longitude.toString());
       print(event.numPeople);
       print(event.duration);
       print("------------------------");

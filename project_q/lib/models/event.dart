@@ -8,19 +8,22 @@ class Event {
   String description;
   String creatorID;
   final String id;
-  GeoPoint position;
+  //GeoPoint position;
   int numPeople;
   int duration;
-  LatLng locationCoords;
+  double latitude;
+  double longitude;
+  //LatLng locationCoords;
 
   Event({
     @required this.title,
     @required this.description,
     @required this.id,
-    this.position,
     this.numPeople,
     this.creatorID,
     this.duration,
+    this.latitude,
+    this.longitude
   });
 }
 /*

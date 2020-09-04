@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:project_q/models/event.dart';
 import 'package:project_q/models/user.dart';
 
@@ -34,9 +35,11 @@ class DatabaseService {
     String description,
     int numPeople,
     int duration,
-    GeoPoint position,
+    //GeoPoint position,
     String creatorID,
     List<String> participants,
+    double latitude,
+    double longitude,
   ) async {
     print('uploading data');
     return await events.add({
@@ -44,9 +47,10 @@ class DatabaseService {
       'description': description,
       'duration': duration,
       'numPeople': numPeople,
-      'position': position,
       'creatorID': creatorID,
       'participants': participants,
+      'latitude': latitude,
+      'longitude': longitude
     });
   }
 
@@ -56,18 +60,15 @@ class DatabaseService {
       return Event(
           title: doc.data['title'] ?? '',
           description: doc.data['description'] ?? '',
-          position: doc.data['position'][0]['Latitude'] ?? null,
+          //position: doc.data['position'] ?? null,
+          latitude: doc.data['latitude'] ?? null,
+          longitude: doc.data['longitude'] ?? null,
           numPeople: doc.data['numPeople'] ?? 2,
           duration: doc.data['duration'] ?? 30,
           creatorID: doc.data['creatorID'] ?? null,
           id: doc.data['id']);
     }).toList();
   }
-
-  void readData() {
-
-  }
-  
 
   //Get updates user stream (later edit to get events)
   //Stream<QuerySnapshot> get localEvents {

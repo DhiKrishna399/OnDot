@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
@@ -179,20 +180,20 @@ class _CreateEventCardState extends State<CreateEventCard> {
                               print('proceed to upload');
                               Position currentPo = await getCurrentPosition(
                                   desiredAccuracy: LocationAccuracy.high);
-                              GeoPoint(currentPo.latitude,currentPo.longitude);
                               print('position fetched');
                               //print(currentCord.data.toString());
                               DocumentReference result =
                                   await DatabaseService().createEvent(
                                 eventName,
                                 eventDescription,
-                                eventNumPeople,
                                 eventDuration,
-                                //currentCord,
-                                GeoPoint(currentPo.latitude,currentPo.longitude),
+                                eventNumPeople,
                                 user.uid,
                                 null,
+                                currentPo.latitude,
+                                currentPo.longitude,
                               );
+                              print("Uploaded data");
                               await DatabaseService(uid: user.uid)
                                   .updateUserData(
                                 userData.name,
